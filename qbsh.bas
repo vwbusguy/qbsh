@@ -2,40 +2,52 @@ _Title "QBSH - Quick Basic Shell"
 
 GoSub WELCOME
 
-lbl1:
-Clear
-Input "$ ", cmd$
-If cmd$ = "exit" GoTo quit
-If cmd$ = "HELP" GoTo HELP1
-If cmd$ = "CLEAR" GoTo CLEARSCR
-If cmd$ = "ENV" GoTo ENV
-If InStr(cmd$, "PRINT ") = 1 GoTo OUT1
-If InStr(cmd$, "READFILE ") = 1 Or InStr(cmd$, "cat ") = 1 GoTo READFILE1
+MAIN:
+Do
+    Clear
+    Input "$ ", cmd$
+    If cmd$ = "exit" Or cmd$ = "QUIT" Then
+        GoSub quit
+    ElseIf cmd$ = "HELP" Then
+        GoSub HELP1
+    ElseIf cmd$ = "CLEAR" Then
+        GoSub CLEARSCR
+    ElseIf cmd$ = "ENV" Then
+        GoSub ENV
+    ElseIf InStr(cmd$, "PRINT ") = 1 Then
+        GoSub OUT1
+    ElseIf InStr(cmd$, "READFILE ") = 1 Or InStr(cmd$, "cat ") = 1 Then
+        GoSub READFILE1
+    Else GoSub CMDOUT
+    End If
+Loop
+
+CLEARSCR:
+Cls
+GoSub WELCOME
+Return
+
+CMDOUT:
 Shell "SHELL='qbsh'; " + cmd$ + " >/tmp/foo"
 Open "/tmp/foo" For Binary As #1
 x$ = Space$(LOF(1))
 Get #1, , x$
 Close #1
 Print x$
-GoTo lbl1
-End
-
-CLEARSCR:
-Cls
-GoSub WELCOME
-GoTo lbl1
 Return
 
 ENV:
 Do
-    i = i + 1
-    setting$ = Environ$(i) ' get a setting from the list
+    I = I + 1
+    setting$ = Environ$(I) ' get a setting from the list
     If InStr(setting$, "SHELL=") = 1 Then
         Print "SHELL=qbsh"
     Else
         Print setting$
     End If
-    If i Mod 20 = 0 GoTo lbl1
+    If I Mod 20 = 0 Then
+        Return
+    End If
 Loop Until setting$ = ""
 Return
 
@@ -47,12 +59,10 @@ Print "PRINT - Output some text"
 Print "READFILE <file> - Output some text file to terminal"
 Print
 Print "To exit the shell, run `exit`"
-GoTo lbl1
 Return
 
 OUT1:
 Print Right$(cmd$, Len(cmd$) - 6)
-GoTo lbl1
 Return
 
 READFILE1:
@@ -61,12 +71,11 @@ If InStr(cmd$, "READFILE ") = 1 Then
 Else
     tmpfileloc$ = Right$(cmd$, Len(cmd$) - 4)
 End If
-Open tempfileloc$ For Binary As #1
+Open tmpfileloc$ For Binary As #1
 x$ = Space$(LOF(1))
 Get #1, , x$
 Close #1
 Print x$
-GoTo lbl1
 Return
 
 quit:
