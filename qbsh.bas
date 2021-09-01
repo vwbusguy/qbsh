@@ -5,17 +5,7 @@ GoSub WELCOME
 MAIN:
 Do
     Clear
-    Color 14
-    Print _CWD$ + " ";
-    user$ = Environ$("USER")
-    If user$ = "root" Then
-        Color 12
-        Print "root> # ";
-    Else
-        Color 10
-        Print user$ + "> $ ";
-    End If
-    Color 15
+    GoSUB PROMPT
     Line Input ""; cmd$
     If cmd$ = "exit" Or cmd$ = "QUIT" Then
         GoSub quit
@@ -36,7 +26,7 @@ Do
 Loop
 
 CDIR:
-CHDIR Right$(cmd$,Len(cmd$) - 3)
+ChDir Right$(cmd$, Len(cmd$) - 3)
 Return
 
 CLEARSCR:
@@ -80,6 +70,20 @@ Return
 
 OUT1:
 Print Right$(cmd$, Len(cmd$) - 6)
+Return
+
+PROMPT:
+Color 14
+Print _CWD$ + " ";
+user$ = Environ$("USER")
+If user$ = "root" Then
+    Color 12
+    Print "root> # ";
+Else
+    Color 10
+    Print user$ + "> $ ";
+End If
+Color 15
 Return
 
 READFILE1:
