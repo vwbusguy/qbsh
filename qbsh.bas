@@ -5,7 +5,18 @@ GoSub WELCOME
 MAIN:
 Do
     Clear
-    Input "$ ", cmd$
+    Color 14
+    Print _CWD$ + " ";
+    user$ = Environ$("USER")
+    If user$ = "root" Then
+        Color 12
+        Print "root> # ";
+    Else
+        Color 10
+        Print user$ + "> $ ";
+    End If
+    Color 15
+    Line Input ""; cmd$
     If cmd$ = "exit" Or cmd$ = "QUIT" Then
         GoSub quit
     ElseIf cmd$ = "HELP" Then
@@ -39,7 +50,7 @@ Return
 ENV:
 Do
     I = I + 1
-    setting$ = Environ$(I) ' get a setting from the list
+    setting$ = Environ$(I)
     If InStr(setting$, "SHELL=") = 1 Then
         Print "SHELL=qbsh"
     Else
