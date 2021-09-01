@@ -1,11 +1,6 @@
 _Title "QBSH - Quick Basic Shell"
 
-WELCOME:
-Print "WELCOME TO Quick Basic Shell, " + Environ$("USER")
-Print "Type HELP to see a list of commands."
-Print
-GoTo lbl1
-End
+GoSub WELCOME
 
 lbl1:
 Clear
@@ -15,7 +10,7 @@ If cmd$ = "HELP" GoTo HELP1
 If cmd$ = "CLEAR" GoTo CLEARSCR
 If cmd$ = "ENV" GoTo ENV
 If InStr(cmd$, "PRINT ") = 1 GoTo OUT1
-If InStr(cmd$, "READFILE ") = 1 GoTo READFILE1
+If InStr(cmd$, "READFILE ") = 1 Or InStr(cmd$, "cat ") = 1 GoTo READFILE1
 Shell "SHELL='qbsh'; " + cmd$ + " >/tmp/foo"
 Open "/tmp/foo" For Binary As #1
 x$ = Space$(LOF(1))
@@ -27,8 +22,9 @@ End
 
 CLEARSCR:
 Cls
-GoTo WELCOME
-End
+GoSub WELCOME
+GoTo lbl1
+Return
 
 ENV:
 Do
@@ -41,7 +37,7 @@ Do
     End If
     If i Mod 20 = 0 GoTo lbl1
 Loop Until setting$ = ""
-End
+Return
 
 HELP1:
 Print "Try One of These Commands:"
@@ -52,23 +48,33 @@ Print "READFILE <file> - Output some text file to terminal"
 Print
 Print "To exit the shell, run `exit`"
 GoTo lbl1
-End
+Return
 
 OUT1:
 Print Right$(cmd$, Len(cmd$) - 6)
 GoTo lbl1
-End
+Return
 
 READFILE1:
-Open Right$(cmd$, Len(cmd$) - 9) For Binary As #1
+If InStr(cmd$, "READFILE ") = 1 Then
+    tmpfileloc$ = Right$(cmd$, Len(cmd$) - 9)
+Else
+    tmpfileloc$ = Right$(cmd$, Len(cmd$) - 4)
+End If
+Open tempfileloc$ For Binary As #1
 x$ = Space$(LOF(1))
 Get #1, , x$
 Close #1
 Print x$
 GoTo lbl1
-End
+Return
 
 quit:
 Stop
 End
 
+WELCOME:
+Print "WELCOME TO Quick Basic Shell, " + Environ$("USER")
+Print "Type HELP to see a list of commands."
+Print
+Return
