@@ -21,6 +21,8 @@ Do
         GoSub quit
     ElseIf cmd$ = "HELP" Then
         GoSub HELP1
+    ElseIf InStr(cmd$, "cd ") = 1 Or InStr(cmd$, "CD ") = 1 Then
+        GoSub CDIR
     ElseIf cmd$ = "CLEAR" Then
         GoSub CLEARSCR
     ElseIf cmd$ = "ENV" Then
@@ -32,6 +34,10 @@ Do
     Else GoSub CMDOUT
     End If
 Loop
+
+CDIR:
+CHDIR Right$(cmd$,Len(cmd$) - 3)
+Return
 
 CLEARSCR:
 Cls
