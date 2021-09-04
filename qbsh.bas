@@ -21,10 +21,14 @@ Do
         Print Date$
     ElseIf cmd$ = "ENV" Then
         GoSub ENV
+    ElseIf InStr(cmd$, "MAKEDIR") = 1 Then
+        GoSub MAKEDIR
     ElseIf InStr(cmd$, "PRINT ") = 1 Then
         GoSub OUT1
     ElseIf InStr(cmd$, "RAND") = 1 Then
         GoSub RANDNUM
+    ElseIf InStr(cmd$, "RMDIR") = 1 Then
+        GoSub REMDIR
     ElseIf cmd$ = "TIME" Then
         Print Time$
     ElseIf cmd$ = "USER" Or InStr(cmd$, "WHO ") = 1 Then
@@ -110,13 +114,20 @@ Print "CALC - Add, Subtract, Multiply, and Divide"
 Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
 Print "ENV - Print Environment"
+Print "MAKEDIR <directory> - Make a new directory"
 Print "PRINT - Output some text"
 Print "RAND <Optional Limit> - Random number generator"
 Print "READFILE <file> - Output some text file to terminal"
+Print "RMDIR <Directory> - Delete a directory"
 Print "TIME - Current time"
 Print "WHO AM I - Sometimes we all forget, right?"
 Print
 Print "To exit the shell, run `exit`"
+Return
+
+'Make a new directory
+MAKEDIR:
+MkDir Right$(cmd$, Len(cmd$) - 8)
 Return
 
 'Is there an echo in here?
@@ -167,6 +178,11 @@ x$ = Space$(LOF(1))
 Get #1, , x$
 Close #1
 Print x$
+Return
+
+'Remove directory
+REMDIR:
+RmDir Right$(cmd$, Len(cmd$) - 6)
 Return
 
 'Give a way to close this because this isn't vim

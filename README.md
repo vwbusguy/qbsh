@@ -22,9 +22,11 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `CLEAR` - Clear the current screen
 * `DATE` - Today's Date
 * `ENV` - Print Environment
+* `MAKEDIR <directory>` - Make a new directory
 * `PRINT` - Output some text (is there an echo in here?)
 * `RAND <Optional Limit>` - Random number generator, defaults to 0-10 and supports negative numbers
 * `READFILE <file>` - Output some text file to terminal (cat also works)
+* `RMDIR <Directory>` - Delete a directory
 * `TIME` - Current time
 * `WHO AM I` - Sometimes we all forget, right? (USER also works)
 
