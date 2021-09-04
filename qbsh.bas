@@ -25,6 +25,8 @@ Do
         GoSub MAKEDIR
     ElseIf InStr(cmd$, "PRINT ") = 1 Then
         GoSub OUT1
+    ElseIf InStr(cmd$, "PLAY ") = 1 Then
+        Play Right$(cmd$, Len(cmd$) - 5)
     ElseIf InStr(cmd$, "RAND") = 1 Then
         GoSub RANDNUM
     ElseIf InStr(cmd$, "RMDIR") = 1 Then
@@ -115,6 +117,7 @@ Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
 Print "ENV - Print Environment"
 Print "MAKEDIR <directory> - Make a new directory"
+Print "PLAY <Notes> - Play sounds and rock out!"
 Print "PRINT - Output some text"
 Print "RAND <Optional Limit> - Random number generator"
 Print "READFILE <file> - Output some text file to terminal"
