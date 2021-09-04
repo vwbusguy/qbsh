@@ -9,7 +9,7 @@ Do
     Line Input ""; cmd$
     If cmd$ = "exit" Or cmd$ = "QUIT" Then
         GoSub quit
-    ElseIf cmd$ = "HELP" OR cmd$ = "help" Then
+    ElseIf cmd$ = "HELP" Or cmd$ = "help" Then
         GoSub HELP1
     ElseIf InStr(cmd$, "cd ") = 1 Or InStr(cmd$, "CD ") = 1 Then
         GoSub CDIR
@@ -31,15 +31,18 @@ Do
     End If
 Loop
 
+'Change working directory
 CDIR:
 ChDir Right$(cmd$, Len(cmd$) - 3)
 Return
 
+'Clear the screen and display welcome text
 CLEARSCR:
 Cls
 GoSub WELCOME
 Return
 
+'Offload unhandled call to legacy system shell.  qbsh is the only shell of the future.
 CMDOUT:
 Shell "SHELL='qbsh'; " + cmd$ + " >/tmp/foo"
 Open "/tmp/foo" For Binary As #1
@@ -49,6 +52,7 @@ Close #1
 Print x$
 Return
 
+'Take a look around at your environment.  And then print that.
 ENV:
 Do
     I = I + 1
@@ -64,6 +68,7 @@ Do
 Loop Until setting$ = ""
 Return
 
+'Tell users some of what we can do
 HELP1:
 Print "Try One of These Commands:"
 Print "CLEAR - Clear the current screen"
@@ -77,10 +82,12 @@ Print
 Print "To exit the shell, run `exit`"
 Return
 
+'Is there an echo in here?
 OUT1:
 Print Right$(cmd$, Len(cmd$) - 6)
 Return
 
+'So user knows where they are and who they are
 PROMPT:
 Color 14
 Print _CWD$ + " ";
@@ -95,6 +102,7 @@ End If
 Color 15
 Return
 
+'This sub reads a file.
 READFILE1:
 If InStr(cmd$, "READFILE ") = 1 Then
     tmpfileloc$ = Right$(cmd$, Len(cmd$) - 9)
@@ -108,10 +116,12 @@ Close #1
 Print x$
 Return
 
+'Give a way to close this because this isn't vim
 quit:
 Stop
 End
 
+'A friendly greeting
 WELCOME:
 Print "WELCOME TO Quick Basic Shell, " + Environ$("USER")
 Print "Type HELP to see a list of commands."
