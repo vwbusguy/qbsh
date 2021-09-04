@@ -39,7 +39,7 @@ If InStr(baseval$, " ") < 2 Then
     Print "Improper CALC Syntax.  Ex: 1 + 2"
     Return
 End If
-v1! = Val(Left$(baseval$, InStr(baseval$, " ")))
+v1# = Val(Left$(baseval$, InStr(baseval$, " ")))
 baseval2$ = Right$(baseval$, Len(baseval$) - InStr(baseval$, " "))
 If InStr(baseval2$, " ") < 2 Then
     Print "Improper CALC Syntax.  Ex: 1 + 2"
@@ -50,16 +50,16 @@ If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "x" And oper$ <> 
     Print "Improper CALC Syntax.  Ex: 1 + 2"
     Return
 End If
-v2! = Val(Right$(baseval2$, Len(baseval2$) - 2))
+v2# = Val(Right$(baseval2$, Len(baseval2$) - 2))
 Select Case oper$
     Case "+"
-        Print v1! + v2!
+        Print v1# + v2#
     Case "-"
-        Print v1! - v2!
+        Print v1# - v2#
     Case "*", "x"
-        Print v1! * v2!
+        Print v1# * v2#
     Case "/"
-        Print v1! / v2!
+        Print v1# / v2#
 End Select
 Return
 
