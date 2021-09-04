@@ -23,6 +23,8 @@ Do
         GoSub ENV
     ElseIf InStr(cmd$, "PRINT ") = 1 Then
         GoSub OUT1
+    ElseIf InStr(cmd$, "RAND") = 1 Then
+        GoSub RANDNUM
     ElseIf cmd$ = "TIME" Then
         Print Time$
     ElseIf cmd$ = "USER" Or InStr(cmd$, "WHO ") = 1 Then
@@ -109,6 +111,7 @@ Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
 Print "ENV - Print Environment"
 Print "PRINT - Output some text"
+Print "RAND <Optional Limit> - Random number generator"
 Print "READFILE <file> - Output some text file to terminal"
 Print "TIME - Current time"
 Print "WHO AM I - Sometimes we all forget, right?"
@@ -134,6 +137,16 @@ Else
     Print user$ + "> $ ";
 End If
 Color 15
+Return
+
+'Return a Random Number
+RANDNUM:
+If Len(cmd$) > 5 Then
+    randlimit = Int(Val(Right$(cmd$, Len(cmd$) - 5)))
+Else
+    randlimit = 10
+End If
+Print Int(Rnd * (randlimit + 1))
 Return
 
 'This sub reads a file.
