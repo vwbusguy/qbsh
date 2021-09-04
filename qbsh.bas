@@ -33,6 +33,7 @@ Do
     End If
 Loop
 
+'Add, Subtract, Multiply, and Divide
 CALC:
 baseval$ = Right$(cmd$, Len(cmd$) - 5)
 If InStr(baseval$, " ") < 2 Then
