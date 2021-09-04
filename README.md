@@ -9,6 +9,8 @@ To compile this with qb64:
 
 `qb64 -x $PWD/qbsh.bas -o $PWD/qbsh`
 
+It's also possible to load this into the QB64 GUI and then press F5 to compile/run it from there if a GUI is preferred.
+
 # Shell Syntax
 
 The syntax is very, well, basic.  It's simple commands (usually upper-case) with simple arguments.  If all else fails, it will attempt to run the command in the default system shell for the user (ie, bash, cmd, etc.), but anything interactive with the system shell likely won't work.
