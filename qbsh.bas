@@ -51,15 +51,16 @@ If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "/" Then
     Return
 End If
 v2! = Val(Right$(baseval2$, Len(baseval2$) - 2))
-If oper$ = "+" Then
-    Print v1! + v2!
-ElseIf oper$ = "-" Then
-    Print v1! - v2!
-ElseIf oper$ = "*" Then
-    Print v1! * v2!
-ElseIf oper$ = "/" Then
-    Print v1! / v2!
-End If
+Select Case oper$
+    Case "+"
+        Print v1! + v2!
+    Case "-"
+        Print v1! - v2!
+    Case "*"
+        Print v1! * v2!
+    Case "/"
+        Print v1! / v2!
+End Select
 Return
 
 'Change working directory
