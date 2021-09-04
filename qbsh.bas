@@ -5,17 +5,7 @@ GoSub WELCOME
 MAIN:
 Do
     Clear
-    Color 14
-    Print _CWD$ + " ";
-    user$ = Environ$("USER")
-    If user$ = "root" Then
-        Color 12
-        Print "root> # ";
-    Else
-        Color 10
-        Print user$ + "> $ ";
-    End If
-    Color 15
+    GoSub PROMPT
     Line Input ""; cmd$
     If cmd$ = "exit" Or cmd$ = "QUIT" Then
         GoSub quit
@@ -25,10 +15,16 @@ Do
         GoSub CDIR
     ElseIf cmd$ = "CLEAR" Then
         GoSub CLEARSCR
+    ElseIf cmd$ = "DATE" Then
+        Print Date$
     ElseIf cmd$ = "ENV" Then
         GoSub ENV
     ElseIf InStr(cmd$, "PRINT ") = 1 Then
         GoSub OUT1
+    ElseIf cmd$ = "TIME" Then
+        Print Time$
+    ElseIf cmd$ = "USER" Or InStr(cmd$ ,"WHO ") = 1 Then
+        Print Environ$("USER")
     ElseIf InStr(cmd$, "READFILE ") = 1 Or InStr(cmd$, "cat ") = 1 Then
         GoSub READFILE1
     Else GoSub CMDOUT
@@ -36,7 +32,7 @@ Do
 Loop
 
 CDIR:
-CHDIR Right$(cmd$,Len(cmd$) - 3)
+ChDir Right$(cmd$, Len(cmd$) - 3)
 Return
 
 CLEARSCR:
@@ -71,15 +67,32 @@ Return
 HELP1:
 Print "Try One of These Commands:"
 Print "CLEAR - Clear the current screen"
+Print "DATE - Today's Date"
 Print "ENV - Print Environment"
 Print "PRINT - Output some text"
 Print "READFILE <file> - Output some text file to terminal"
+Print "TIME - Current time"
+Print "WHO AM I - Sometimes we all forget, right?"
 Print
 Print "To exit the shell, run `exit`"
 Return
 
 OUT1:
 Print Right$(cmd$, Len(cmd$) - 6)
+Return
+
+PROMPT:
+Color 14
+Print _CWD$ + " ";
+user$ = Environ$("USER")
+If user$ = "root" Then
+    Color 12
+    Print "root> # ";
+Else
+    Color 10
+    Print user$ + "> $ ";
+End If
+Color 15
 Return
 
 READFILE1:
