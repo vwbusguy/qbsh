@@ -13,6 +13,8 @@ Do
         GoSub HELP1
     ElseIf InStr(cmd$, "cd ") = 1 Or InStr(cmd$, "CD ") = 1 Then
         GoSub CDIR
+    ElseIf InStr(cmd$, "CALC ") = 1 Then
+        GoSub CALC
     ElseIf cmd$ = "CLEAR" Then
         GoSub CLEARSCR
     ElseIf cmd$ = "DATE" Then
@@ -30,6 +32,35 @@ Do
     Else GoSub CMDOUT
     End If
 Loop
+
+CALC:
+baseval$ = Right$(cmd$, Len(cmd$) - 5)
+If InStr(baseval$, " ") < 2 Then
+    Print "Improper CALC Syntax.  Ex: 1 + 2"
+    Return
+End If
+v1! = Val(Left$(baseval$, InStr(baseval$, " ")))
+baseval2$ = Right$(baseval$, Len(baseval$) - InStr(baseval$, " "))
+If InStr(baseval2$, " ") < 2 Then
+    Print "Improper CALC Syntax.  Ex: 1 + 2"
+    Return
+End If
+oper$ = Left$(baseval2$, 1)
+If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "/" Then
+    Print "Improper CALC Syntax.  Ex: 1 + 2"
+    Return
+End If
+v2! = Val(Right$(baseval2$, Len(baseval2$) - 2))
+If oper$ = "+" Then
+    Print v1! + v2!
+ElseIf oper$ = "-" Then
+    Print v1! - v2!
+ElseIf oper$ = "*" Then
+    Print v1! * v2!
+ElseIf oper$ = "/" Then
+    Print v1! / v2!
+End If
+Return
 
 'Change working directory
 CDIR:
@@ -71,6 +102,7 @@ Return
 'Tell users some of what we can do
 HELP1:
 Print "Try One of These Commands:"
+Print "CALC - Add, Subtract, Multiply, and Divide"
 Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
 Print "ENV - Print Environment"
