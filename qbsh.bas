@@ -46,7 +46,7 @@ If InStr(baseval2$, " ") < 2 Then
     Return
 End If
 oper$ = Left$(baseval2$, 1)
-If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "/" Then
+If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "x" And oper$ <> "/" Then
     Print "Improper CALC Syntax.  Ex: 1 + 2"
     Return
 End If
@@ -56,7 +56,7 @@ Select Case oper$
         Print v1! + v2!
     Case "-"
         Print v1! - v2!
-    Case "*"
+    Case "*", "x"
         Print v1! * v2!
     Case "/"
         Print v1! / v2!
