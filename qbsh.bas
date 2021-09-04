@@ -9,7 +9,7 @@ Do
     Line Input ""; cmd$
     If cmd$ = "exit" Or cmd$ = "QUIT" Then
         GoSub quit
-    ElseIf cmd$ = "HELP" Then
+    ElseIf cmd$ = "HELP" OR cmd$ = "help" Then
         GoSub HELP1
     ElseIf InStr(cmd$, "cd ") = 1 Or InStr(cmd$, "CD ") = 1 Then
         GoSub CDIR
@@ -23,7 +23,7 @@ Do
         GoSub OUT1
     ElseIf cmd$ = "TIME" Then
         Print Time$
-    ElseIf cmd$ = "USER" Or InStr(cmd$ ,"WHO ") = 1 Then
+    ElseIf cmd$ = "USER" Or InStr(cmd$, "WHO ") = 1 Then
         Print Environ$("USER")
     ElseIf InStr(cmd$, "READFILE ") = 1 Or InStr(cmd$, "cat ") = 1 Then
         GoSub READFILE1
@@ -117,4 +117,3 @@ Print "WELCOME TO Quick Basic Shell, " + Environ$("USER")
 Print "Type HELP to see a list of commands."
 Print
 Return
-
