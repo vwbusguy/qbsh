@@ -146,7 +146,13 @@ If Len(cmd$) > 5 Then
 Else
     randlimit = 10
 End If
-Print Int(Rnd * (randlimit + 1))
+If randlimit < 0 Then
+    randlimit = randlimit * -1
+    posnegmod = Int(-1)
+Else
+    posnegmod = 1
+End If
+Print Int(Rnd * (randlimit + 1) * posnegmod)
 Return
 
 'This sub reads a file.
