@@ -192,8 +192,7 @@ Return
 
 'Give a way to close this because this isn't vim
 quit:
-Stop
-End
+System
 
 'A friendly greeting
 WELCOME:
