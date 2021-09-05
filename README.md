@@ -39,7 +39,7 @@ Current code architecture is that the MAIN loop routes the input to the appropri
 
 Here's a list of low hanging fruit for ways this can be improved:
 
-* Optionally break out of the GUI window on launch and use existing terminal
+* ~~Optionally break out of the GUI window on launch and use existing terminal~~
 * Eliminate the file buffer from system shell calls as this is not great for security and less cross-compatible with Windows, etc.
 * Add native means of listing contents of the current directory 
 * Add a means of storing output to a re-usable var in the shell
