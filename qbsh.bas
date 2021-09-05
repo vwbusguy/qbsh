@@ -4,6 +4,7 @@ $Console:Only
 _Dest _Console
 _Source CONSOLE
 
+Randomize Timer
 
 GoSub WELCOME
 
