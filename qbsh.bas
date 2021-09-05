@@ -12,38 +12,30 @@ Do
     Clear
     GoSub PROMPT
     Line Input ""; cmd$
-    If cmd$ = "exit" Or cmd$ = "QUIT" Then
-        GoSub quit
-    ElseIf cmd$ = "HELP" Or cmd$ = "help" Then
-        GoSub HELP1
-    ElseIf InStr(cmd$, "cd ") = 1 Or InStr(cmd$, "CD ") = 1 Then
-        GoSub CDIR
-    ElseIf InStr(cmd$, "CALC ") = 1 Then
-        GoSub CALC
-    ElseIf cmd$ = "CLEAR" Then
-        GoSub CLEARSCR
-    ElseIf cmd$ = "DATE" Then
-        Print Date$
-    ElseIf cmd$ = "ENV" Then
-        GoSub ENV
-    ElseIf InStr(cmd$, "MAKEDIR") = 1 Then
-        GoSub MAKEDIR
-    ElseIf InStr(cmd$, "PRINT ") = 1 Then
-        GoSub OUT1
-    ElseIf InStr(cmd$, "PLAY ") = 1 Then
-        Play Right$(cmd$, Len(cmd$) - 5)
-    ElseIf InStr(cmd$, "RAND") = 1 Then
-        GoSub RANDNUM
-    ElseIf InStr(cmd$, "RMDIR") = 1 Then
-        GoSub REMDIR
-    ElseIf cmd$ = "TIME" Then
-        Print Time$
-    ElseIf cmd$ = "USER" Or InStr(cmd$, "WHO ") = 1 Then
-        Print Environ$("USER")
-    ElseIf InStr(cmd$, "READFILE ") = 1 Or InStr(cmd$, "cat ") = 1 Then
-        GoSub READFILE1
-    Else GoSub CMDOUT
+    cmd$ = _Trim$(cmd$)
+    If InStr(cmd$, " ") = 0 Then
+        refcmd$ = cmd$
+    Else
+        refcmd$ = Left$(cmd$, InStr(cmd$, " ") - 1)
     End If
+    Select Case UCase$(refcmd$)
+        Case "EXIT", "QUIT": GoSub quit
+        Case "HELP": GoSub HELP1
+        Case "CD": GoSub CDIR
+        Case "CALC": GoSub CALC
+        Case "CLEAR": GoSub CLEARSCR
+        Case "DATE": Print Date$
+        Case "ENV": GoSub ENV
+        Case "MAKEDIR": GoSub MAKEDIR
+        Case "PRINT": GoSub OUT1
+        Case "PLAY": Play Right$(cmd$, Len(cmd$) - 5)
+        Case "RAND": GoSub RANDNUM
+        Case "RMDIR": GoSub REMDIR
+        Case "TIME": Print Time$
+        Case "USER", "WHO": Print Environ$("USER")
+        Case "READFILE", "CAT": GoSub READFILE1
+        Case Else: GoSub CMDOUT
+    End Select
 Loop
 
 'Add, Subtract, Multiply, and Divide
