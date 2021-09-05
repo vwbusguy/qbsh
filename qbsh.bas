@@ -1,7 +1,9 @@
 _Title "QBSH - Quick Basic Shell"
+_ConsoleTitle "QBSH - Quick Basic Shell"
 $Console:Only
 _Dest _Console
 _Source CONSOLE
+
 
 GoSub WELCOME
 
@@ -71,7 +73,11 @@ Select Case oper$
     Case "*", "x"
         Print v1# * v2#
     Case "/"
-        Print v1# / v2#
+        If v2# <> 0 Then
+            Print v1# / v2#
+        Else
+            Print "Divide By Zero?  Are you insane?!?"
+        End If
 End Select
 Return
 
