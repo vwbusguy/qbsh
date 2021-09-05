@@ -4,7 +4,6 @@ $Console:Only
 _Dest _Console
 _Source CONSOLE
 
-Randomize Timer
 
 GoSub WELCOME
 
@@ -24,7 +23,7 @@ Do
         Case "HELP": GoSub HELP1
         Case "CD": GoSub CDIR
         Case "CALC": GoSub CALC
-        Case "CLEAR": GoSub CLEARSCR
+        Case "CLEAR","CLS": GoSub CLEARSCR
         Case "DATE": Print Date$
         Case "ENV": GoSub ENV
         Case "MAKEDIR": GoSub MAKEDIR
