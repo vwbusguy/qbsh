@@ -1,4 +1,7 @@
 _Title "QBSH - Quick Basic Shell"
+$Console:Only
+_Dest _Console
+_Source CONSOLE
 
 GoSub WELCOME
 
