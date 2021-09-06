@@ -5,11 +5,19 @@ This is an attempt at making a command line shell with [QB64](https://www.qb64.o
 
 # Compiling
 
-To compile this with qb64:
+To compile this with qb64 (Windows users, use `qb64.exe`):
 
 `qb64 -x $PWD/qbsh.bas -o $PWD/qbsh`
 
-It's also possible to load this into the QB64 GUI and then press F5 to compile/run it from there if a GUI is preferred.
+It's also possible to load this into the QB64 GUI and then press F11 to compile it from there if a GUI is preferred.
+
+## Containerize it
+
+A portable Containerfile is provided for use in podman or docker, but the ./make_container_image.sh script will freshly compile a binary and build a container in one shot.  It should work as long as you have podman and qb64 installed in your path and your system has a compatible GLIB version to Fedora.
+
+Once it's done, you can run it with:
+
+`podman run --rm -it localhost/qbsh`
 
 # Shell Syntax
 
@@ -17,7 +25,7 @@ The syntax is very, well, basic.  It's simple commands (usually upper-case) with
 
 ## Commands
 
-Typing "HELP" (or "help") will bring up a quick list of some command possibilities.
+Typing "HELP" (or "help") will bring up a quick list of some command possibilities.  While this is periodically updated, it is not an exhaustive list.
 
 * `CALC` - Add, Subtract, Multiply, and Divide
 * `CD` - Change working directory
@@ -45,3 +53,4 @@ Here's a list of low hanging fruit for ways this can be improved:
 * Add native means of listing contents of the current directory 
 * Add a means of storing output to a re-usable var in the shell
 * Feed commands through the shell in a script file
+* Ship container images on quay.io and/or Docker Hub
