@@ -80,7 +80,7 @@ CDIR:
 ChDir Right$(cmd$, Len(cmd$) - 3)
 Return
 
-'Is it Easter of Christmas?
+'Is it Easter or Christmas?
 CHRISTMAS:
 Play "t140o2p4g2e4.f8g4o3c2o2b8o3c8d4c4o2b4a8g2.o2b8o3c8d4c4o2b4a8a8g8o3c4o2e8e4g8a8g4f4e4f4g2.g2e4.f8g4o3c2o2b8o3c8d4c4o2b4a8g2.o2b8o3c8d4c4o2b4a8a8g8o3c4o2e8e4g8a8g4f4e4d4c2.c4a4a4o3c4c4o2b4a4g4e4f4a4g4f4e2.e8e8d4d4g4g4b4b4o3d4d8o2b8o3d4c4o2b4a4g4p4g2g2e4.f8g4o3c2o2b8o3c8d4c4o2b4a8g8g2.o2b8o3c8d4c4o2b4a8a8g8o3c4o2e8e4g8a8g4f4e4d4c2.p4t180g8g8g4g4g4a8g8g4g4g4a4g4e4g4d1t180g8g8g4g4g4a8g8g4g4g4g8g8g4a4b4o3c2c4p1"
 Return
