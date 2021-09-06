@@ -21,6 +21,7 @@ Do
         Case "EXIT", "QUIT": GoSub quit
         Case "HELP": GoSub HELP1
         Case "CD": GoSub CDIR
+        Case "DEL", "DELETE", "RM": GoSub DEL
         Case "CALC": GoSub CALC
         Case "CLEAR", "CLS": GoSub CLEARSCR
         Case "DATE": Print Date$
@@ -94,6 +95,18 @@ Close #1
 Print x$
 Return
 
+'Delete a file path
+DEL:
+pathspec$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
+If _FileExists(pathspec$) Then
+    Kill pathspec$
+ElseIf _DirExists(pathspec$) Then
+    Print "Path is a directory.  Empty it and then use RMDIR instead."
+Else
+    Print "File not found."
+End If
+Return
+
 'Take a look around at your environment.  And then print that.
 ENV:
 Do
@@ -116,6 +129,7 @@ Print "Try One of These Commands:"
 Print "CALC - Add, Subtract, Multiply, and Divide"
 Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
+Print "DELETE - Delete a file"
 Print "ENV - Print Environment"
 Print "MAKEDIR <directory> - Make a new directory"
 Print "PLAY <Notes> - Play sounds and rock out!"

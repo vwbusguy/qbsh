@@ -23,6 +23,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `CD` - Change working directory
 * `CLEAR` - Clear the current screen
 * `DATE` - Today's Date
+* `DELETE` - Delete a file
 * `ENV` - Print Environment
 * `MAKEDIR <directory>` - Make a new directory
 * `PLAY <Notes>` - Make some music and rock out
