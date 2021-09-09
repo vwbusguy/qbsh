@@ -13,6 +13,12 @@ It's also possible to load this into the QB64 GUI and then press F11 to compile 
 
 ## Containerize it
 
+qbsh is now available through [quay.io](https://quay.io/repository/vwbusguy/qbsh?tab=info).  You can now run it with podman or Docker:
+
+`podman run --pull=always --rm -it quay.io/vwbusguy/qbsh`
+
+### Build it yourself
+
 A portable Containerfile is provided for use in podman or docker, but the ./make_container_image.sh script will freshly compile a binary and build a container in one shot.  It should work as long as you have podman and qb64 installed in your path and your system has a compatible GLIB version to Fedora.
 
 Once it's done, you can run it with:
