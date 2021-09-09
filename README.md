@@ -3,6 +3,10 @@ QBSH - Quick BASIC Shell
 
 This is an attempt at making a command line shell with [QB64](https://www.qb64.org).  Unhandled commands are offloaded to the native shell (bash, etc.).  This is a very early project, so your mileage may vary and use this at your own risk!
 
+Try it with podman or docker:
+
+`podman run --pull=always --rm -it quay.io/vwbusguy/qbsh`
+
 # Compiling
 
 To compile this with qb64 (Windows users, use `qb64.exe`):
