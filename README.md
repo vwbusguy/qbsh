@@ -53,4 +53,4 @@ Here's a list of low hanging fruit for ways this can be improved:
 * Add native means of listing contents of the current directory 
 * Add a means of storing output to a re-usable var in the shell
 * Feed commands through the shell in a script file
-* Ship container images on quay.io and/or Docker Hub
+* ~~Ship container images on quay.io and/or Docker Hub~~
