@@ -2,13 +2,13 @@ _Title "QBSH - Quick Basic Shell"
 _ConsoleTitle "QBSH - Quick Basic Shell"
 $Console:Only
 _Dest _Console
-_Source CONSOLE
+_Source _Console
+Screen 0
 
 GoSub WELCOME
 
 MAIN:
 Do
-    Clear
     GoSub PROMPT
     Line Input ""; cmd$
     cmd$ = _Trim$(cmd$)
@@ -192,7 +192,7 @@ Return
 
 'This sub reads a file.
 READFILE1:
-If InStr(cmd$, "READFILE ") = 1 Then
+If InStr(UCase$(cmd$), "READFILE ") = 1 Then
     tmpfileloc$ = Right$(cmd$, Len(cmd$) - 9)
 Else
     tmpfileloc$ = Right$(cmd$, Len(cmd$) - 4)
@@ -215,6 +215,7 @@ System
 
 'A friendly greeting
 WELCOME:
+Color 15
 Print "WELCOME TO Quick Basic Shell, " + Environ$("USER")
 Print "Type HELP to see a list of commands."
 Print
