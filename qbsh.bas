@@ -78,7 +78,11 @@ Return
 
 'Change working directory
 CDIR:
-ChDir Right$(cmd$, Len(cmd$) - 3)
+If _DirExists(args$) Then
+    ChDir args$
+Else
+    Print "CD <DIRECTORY>"
+End If
 Return
 
 'Is it Easter or Christmas?
