@@ -17,6 +17,7 @@ Do
     Else
         refcmd$ = Left$(cmd$, InStr(cmd$, " ") - 1)
     End If
+    args$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
     Select Case UCase$(refcmd$)
         Case "EXIT", "QUIT": GoSub quit
         Case "HELP": GoSub HELP1
@@ -93,12 +94,18 @@ Return
 
 'Offload unhandled call to legacy system shell.  qbsh is the only shell of the future.
 CMDOUT:
-Shell "SHELL='qbsh'; " + cmd$ + " >/tmp/foo"
-Open "/tmp/foo" For Binary As #1
+rndbuf = Rnd * 999999
+buff_file$ = "/tmp/buff_qbsh_" + LTrim$(Str$(rndbuf))
+If _FileExists(buff_file$) Then
+    Kill buff_file$
+End If
+Shell "SHELL='qbsh'; " + cmd$ + " 2>&1 >" + buff_file$
+Open buff_file$ For Binary As #1
 x$ = Space$(LOF(1))
 Get #1, , x$
 Close #1
 Print x$
+Kill buff_file$
 Return
 
 'Delete a file path
@@ -197,6 +204,10 @@ If InStr(UCase$(cmd$), "READFILE ") = 1 Then
 Else
     tmpfileloc$ = Right$(cmd$, Len(cmd$) - 4)
 End If
+If Not _FileExists(tmpfileloc$) Then
+    Print "File not found."
+    Return
+End If
 Open tmpfileloc$ For Binary As #1
 x$ = Space$(LOF(1))
 Get #1, , x$
@@ -206,10 +217,15 @@ Return
 
 'Remove directory
 REMDIR:
-RmDir Right$(cmd$, Len(cmd$) - 6)
+path$ = Right$(cmd$, Len(cmd$) - 6)
+If path$ <> "" And _DirExists(path$) Then
+    RmDir Right$(cmd$, Len(cmd$) - 6)
+Else
+    Print "RMDIR must be called against an empty directory"
+End If
 Return
 
-'Give a way to close this because this isn't vim
+'Give a way to clo(se this because this isn't vim
 quit:
 System
 
