@@ -9,6 +9,7 @@ GoSub WELCOME
 
 MAIN:
 Do
+    On Error GoTo GENERALERROR
     GoSub PROMPT
     Line Input ""; cmd$
     cmd$ = _Trim$(cmd$)
@@ -44,7 +45,7 @@ System
 
 'Add, Subtract, Multiply, and Divide
 CALC:
-baseval$ = Right$(cmd$, Len(cmd$) - 5)
+baseval$ = args$
 If InStr(baseval$, " ") < 2 Then
     Print "Improper CALC Syntax.  Ex: 1 + 2"
     Return
@@ -80,10 +81,17 @@ Return
 'Change working directory
 CDIR:
 If _DirExists(args$) Then
+    On Error GoTo CDIRERR
     ChDir args$
 Else
     Print "CD <DIRECTORY>"
 End If
+Return
+
+CDIRERR:
+Print "Couldn't change directory to "; args$; ".  It's likely that user doesn't have permissions."
+Beep
+Resume Next
 Return
 
 'Is it Easter or Christmas?
@@ -115,14 +123,21 @@ Return
 
 'Delete a file path
 DEL:
-pathspec$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
+pathspec$ = args$
 If _FileExists(pathspec$) Then
+    On Error GoTo DELERR
     Kill pathspec$
 ElseIf _DirExists(pathspec$) Then
     Print "Path is a directory.  Empty it and then use RMDIR instead."
 Else
     Print "File not found."
 End If
+Return
+
+DELERR:
+Print "Could not delete "; args$; ".  It's likely that this user lacks permissions."
+Beep
+Resume Next
 Return
 
 'Take a look around at your environment.  And then print that.
@@ -139,6 +154,13 @@ Do
         Return
     End If
 Loop Until setting$ = ""
+Return
+
+GENERALERROR:
+Print "Something went terribly wrong.  Here's all we know:"
+Print "Error"; Err; "on program file line"; _ErrorLine
+Beep
+GoSub MAIN
 Return
 
 'Tell users some of what we can do
@@ -163,20 +185,38 @@ Return
 
 'Make a new directory
 MAKEDIR:
-MkDir Right$(cmd$, Len(cmd$) - 8)
+If args$ <> "" Then
+    On Error GoTo MAKEDIRERR
+    MkDir args$
+Else
+    Print "MAKEDIR <New Directory Path>"
+End If
+Return
+
+MAKEDIRERR:
+Print "Unable to make "; args$; ".  Likely user doesn't have perms or parent path doesn't exist."
+Beep
+Resume Next
 Return
 
 'Is there an echo in here?
 OUT1:
-Print Right$(cmd$, Len(cmd$) - 6)
+Print args$
 Return
 
 PLAYSOUND:
 If args$ <> "" Then
+    On Error GoTo PLAYSOUNDERR
     Play args$
 Else
     Print "PLAY <NOTES>"
 End If
+Return
+
+PLAYSOUNDERR:
+Print "Could not parse the notes to play."
+Beep
+Resume Next
 Return
 
 'So user knows where they are and who they are
@@ -196,8 +236,8 @@ Return
 
 'Return a Random Number
 RANDNUM:
-If Len(cmd$) > 5 Then
-    randlimit = Int(Val(Right$(cmd$, Len(cmd$) - 5)))
+If args$ <> "" Then
+    randlimit = Int(Val(args$))
 Else
     randlimit = 10
 End If
@@ -212,15 +252,12 @@ Return
 
 'This sub reads a file.
 READFILE1:
-If InStr(UCase$(cmd$), "READFILE ") = 1 Then
-    tmpfileloc$ = Right$(cmd$, Len(cmd$) - 9)
-Else
-    tmpfileloc$ = Right$(cmd$, Len(cmd$) - 4)
-End If
+tmpfileloc$ = args$
 If Not _FileExists(tmpfileloc$) Then
     Print "File not found."
     Return
 End If
+On Error GoTo READFILEERR
 Open tmpfileloc$ For Binary As #1
 x$ = Space$(LOF(1))
 Get #1, , x$
@@ -228,14 +265,26 @@ Close #1
 Print x$
 Return
 
+READFILEERR:
+Print "Could not read "; args$; ".  Likely user lacks permissions."
+Resume MAIN
+Return
+
 'Remove directory
 REMDIR:
-path$ = Right$(cmd$, Len(cmd$) - 6)
+path$ = args$
 If path$ <> "" And _DirExists(path$) Then
-    RmDir Right$(cmd$, Len(cmd$) - 6)
+    On Error GoTo REMDIRERR
+    RmDir path$
 Else
     Print "RMDIR must be called against an empty directory"
 End If
+Return
+
+REMDIRERR:
+Print "Couldn't remove "; args$; ".  Likely the directory is not empty or user lacks permissions."
+Beep
+Resume Next
 Return
 
 'Give a way to clo(se this because this isn't vim
