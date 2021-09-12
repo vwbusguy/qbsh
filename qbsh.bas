@@ -5,6 +5,10 @@ _Dest _Console
 _Source _Console
 Screen 0
 
+'Get current path and change to proper place
+SELFPATH$ = _CWD$ + "/" + Command$(0)
+ChDir (_StartDir$)
+
 GoSub WELCOME
 
 MAIN:
@@ -147,7 +151,7 @@ If args$ = "" Then
         I = I + 1
         setting$ = Environ$(I)
         If InStr(setting$, "SHELL=") = 1 Then
-            Print "SHELL=qbsh"
+            Print "SHELL="; SELFPATH$
         Else
             Print setting$
         End If
@@ -155,6 +159,8 @@ If args$ = "" Then
             Return
         End If
     Loop Until setting$ = ""
+ElseIf args$ = "SHELL" Then
+    Print SELFPATH$
 Else
     Print Environ$(args$)
 End If
