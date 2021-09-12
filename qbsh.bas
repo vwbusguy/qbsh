@@ -14,10 +14,11 @@ Do
     cmd$ = _Trim$(cmd$)
     If InStr(cmd$, " ") = 0 Then
         refcmd$ = cmd$
+        args$ = ""
     Else
         refcmd$ = Left$(cmd$, InStr(cmd$, " ") - 1)
+        args$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
     End If
-    args$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
     Select Case UCase$(refcmd$)
         Case "EXIT", "QUIT": GoSub quit
         Case "HELP": GoSub HELP1
@@ -30,7 +31,7 @@ Do
         Case "ENV": GoSub ENV
         Case "MAKEDIR": GoSub MAKEDIR
         Case "PRINT": GoSub OUT1
-        Case "PLAY": Play Right$(cmd$, Len(cmd$) - 5)
+        Case "PLAY": GoSub PLAYSOUND
         Case "RAND": GoSub RANDNUM
         Case "RMDIR": GoSub REMDIR
         Case "TIME": Print Time$
@@ -168,6 +169,14 @@ Return
 'Is there an echo in here?
 OUT1:
 Print Right$(cmd$, Len(cmd$) - 6)
+Return
+
+PLAYSOUND:
+If args$ <> "" Then
+    Play args$
+Else
+    Print "PLAY <NOTES>"
+End If
 Return
 
 'So user knows where they are and who they are
