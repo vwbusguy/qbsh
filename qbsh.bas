@@ -160,7 +160,7 @@ GENERALERROR:
 Print "Something went terribly wrong.  Here's all we know:"
 Print "Error"; Err; "on program file line"; _ErrorLine
 Beep
-GoSub MAIN
+Resume MAIN
 Return
 
 'Tell users some of what we can do
@@ -204,6 +204,7 @@ OUT1:
 Print args$
 Return
 
+'Make tunes and rock out
 PLAYSOUND:
 If args$ <> "" Then
     On Error GoTo PLAYSOUNDERR
