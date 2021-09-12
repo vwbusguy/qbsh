@@ -42,7 +42,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `CLEAR` - Clear the current screen
 * `DATE` - Today's Date
 * `DELETE` - Delete a file
-* `ENV` - Print Environment
+* `ENV <Optional Key>` - Print Environment
 * `MAKEDIR <directory>` - Make a new directory
 * `PLAY <Notes>` - Make some music and rock out
 * `PRINT` - Output some text (is there an echo in here?)

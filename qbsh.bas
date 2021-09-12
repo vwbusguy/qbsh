@@ -142,18 +142,22 @@ Return
 
 'Take a look around at your environment.  And then print that.
 ENV:
-Do
-    I = I + 1
-    setting$ = Environ$(I)
-    If InStr(setting$, "SHELL=") = 1 Then
-        Print "SHELL=qbsh"
-    Else
-        Print setting$
-    End If
-    If I Mod 20 = 0 Then
-        Return
-    End If
-Loop Until setting$ = ""
+If args$ = "" Then
+    Do
+        I = I + 1
+        setting$ = Environ$(I)
+        If InStr(setting$, "SHELL=") = 1 Then
+            Print "SHELL=qbsh"
+        Else
+            Print setting$
+        End If
+        If I Mod 20 = 0 Then
+            Return
+        End If
+    Loop Until setting$ = ""
+Else
+    Print Environ$(args$)
+End If
 Return
 
 GENERALERROR:
@@ -170,7 +174,7 @@ Print "CALC - Add, Subtract, Multiply, and Divide"
 Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
 Print "DELETE - Delete a file"
-Print "ENV - Print Environment"
+Print "ENV <Optional Key> - Print Environment"
 Print "MAKEDIR <directory> - Make a new directory"
 Print "PLAY <Notes> - Play sounds and rock out!"
 Print "PRINT - Output some text"
