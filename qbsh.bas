@@ -144,6 +144,7 @@ Return
 'Take a look around at your environment.  And then print that.
 ENV:
 If args$ = "" Then
+    I = 0
     Do
         I = I + 1
         setting$ = Environ$(I)
@@ -151,9 +152,6 @@ If args$ = "" Then
             Print "SHELL="; SELFPATH$
         Else
             Print setting$
-        End If
-        If I Mod 20 = 0 Then
-            Return
         End If
     Loop Until setting$ = ""
 ElseIf args$ = "SHELL" Then
