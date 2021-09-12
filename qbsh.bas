@@ -5,10 +5,7 @@ _Dest _Console
 _Source _Console
 Screen 0
 
-'Get current path and change to proper place
-SELFPATH$ = _CWD$ + "/" + Command$(0)
-ChDir (_StartDir$)
-
+GoSub INIT
 GoSub WELCOME
 
 MAIN:
@@ -116,7 +113,7 @@ buff_file$ = "/tmp/buff_qbsh_" + LTrim$(Str$(rndbuf))
 If _FileExists(buff_file$) Then
     Kill buff_file$
 End If
-Shell "SHELL='qbsh'; " + cmd$ + " 2>&1 >" + buff_file$
+Shell "SHELL='" + SELFPATH$ + "'; " + cmd$ + " 2>&1 >" + buff_file$
 Open buff_file$ For Binary As #1
 x$ = Space$(LOF(1))
 Get #1, , x$
@@ -191,6 +188,19 @@ Print "TIME - Current time"
 Print "WHO AM I - Sometimes we all forget, right?"
 Print
 Print "To exit the shell, run `exit`"
+Return
+
+INIT:
+'Get current path and change to proper place
+SELFPATH$ = Environ$("_")
+If SELFPATH$ = "" Or InStr(SELFPATH$, ".") = 1 Then
+    If InStr(Command$(0), ".") = 1 Then
+        SELFPATH$ = _CWD$ + "/" + Right$(Command$(0), Len(Command$(0)) - 2)
+    Else
+        SELFPATH$ = _CWD$ + "/" + Command$(0)
+    End If
+End If
+ChDir (_StartDir$)
 Return
 
 'Make a new directory
