@@ -44,6 +44,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `DELETE` - Delete a file
 * `ENV <Optional Key>` - Print Environment
 * `MAKEDIR <directory>` - Make a new directory
+* `OS` - Print the operating system type
 * `PLAY <Notes>` - Make some music and rock out
 * `PRINT` - Output some text (is there an echo in here?)
 * `RAND <Optional Limit>` - Random number generator, defaults to 0-10 and supports negative numbers

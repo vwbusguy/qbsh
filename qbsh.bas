@@ -32,6 +32,7 @@ Do
         Case "DATE": Print Date$
         Case "ENV": GoSub ENV
         Case "MAKEDIR": GoSub MAKEDIR
+        Case "OS": Print _OS$
         Case "PRINT": GoSub OUT1
         Case "PLAY": GoSub PLAYSOUND
         Case "RAND": GoSub RANDNUM
@@ -183,6 +184,7 @@ Print "DATE - Today's Date"
 Print "DELETE - Delete a file"
 Print "ENV <Optional Key> - Print Environment"
 Print "MAKEDIR <directory> - Make a new directory"
+PRINT "OS - Display the Operating System type
 Print "PLAY <Notes> - Play sounds and rock out!"
 Print "PRINT - Output some text"
 Print "RAND <Optional Limit> - Random number generator"
