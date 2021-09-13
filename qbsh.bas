@@ -212,7 +212,6 @@ ChDir (_StartDir$)
 Return
 
 LSDEV:
-I = 0
 For I = 1 To _Devices
     Print _Device$(I)
     Print "Buttons:"; _LastButton(I); "Axis:"; _LastAxis(I); "Wheels:"; _LastWheel(I)
