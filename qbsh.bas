@@ -30,6 +30,7 @@ Do
         Case "CHRISTMAS": GoSub CHRISTMAS
         Case "CLEAR", "CLS": GoSub CLEARSCR
         Case "DATE": Print Date$
+        Case "DEVICES": GoSub LSDEV
         Case "ENV": GoSub ENV
         Case "MAKEDIR": GoSub MAKEDIR
         Case "OS": Print _OS$
@@ -182,9 +183,10 @@ Print "CALC - Add, Subtract, Multiply, and Divide"
 Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
 Print "DELETE - Delete a file"
+Print "DEVICES - Display info about attached input devices"
 Print "ENV <Optional Key> - Print Environment"
 Print "MAKEDIR <directory> - Make a new directory"
-PRINT "OS - Display the Operating System type
+Print "OS - Display the Operating System type"
 Print "PLAY <Notes> - Play sounds and rock out!"
 Print "PRINT - Output some text"
 Print "RAND <Optional Limit> - Random number generator"
@@ -207,6 +209,14 @@ If SELFPATH$ = "" Or InStr(SELFPATH$, ".") = 1 Then
     End If
 End If
 ChDir (_StartDir$)
+Return
+
+LSDEV:
+I = 0
+For I = 1 To _Devices
+    Print _Device$(I)
+    Print "Buttons:"; _LastButton(I); "Axis:"; _LastAxis(I); "Wheels:"; _LastWheel(I)
+Next
 Return
 
 'Make a new directory
