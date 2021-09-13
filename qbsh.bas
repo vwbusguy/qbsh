@@ -58,7 +58,7 @@ If InStr(baseval2$, " ") < 2 Then
     Return
 End If
 oper$ = Left$(baseval2$, 1)
-If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "x" And oper$ <> "/" Then
+If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "x" And oper$ <> "/" And oper$ <> "%" Then
     Print "Improper CALC Syntax.  Ex: 1 + 2"
     Return
 End If
@@ -75,6 +75,12 @@ Select Case oper$
             Print v1# / v2#
         Else
             Print "Divide By Zero?  Are you insane?!?"
+        End If
+    Case "%"
+        If v2# >= -0.5 And v2# <= 0.5 Then
+            Print "Divide By Zero?  Are you insane?!?"
+        Else
+            Print v1# Mod v2#
         End If
 End Select
 Return
