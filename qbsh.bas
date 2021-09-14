@@ -330,10 +330,15 @@ If args$ = "" Then
     Print "RENAME <FILE/DIR> <NEW NAME>"
     Return
 End If
-sourcepath$ = _Trim$(Left$(args$, InStr(args$, " ")))
-targetpath$ = _Trim$(Right$(args$, Len(args$) - Len(sourcepath$)))
-If InStr(targetpath$, " ") > 0 Then
-    Print "qbsh does not yet support filesystem paths with spaces in them."
+If InStr(UCase$(args$), " AS ") = 0 Then
+    sourcepath$ = _Trim$(Left$(args$, InStr(args$, " ")))
+    targetpath$ = _Trim$(Right$(args$, Len(args$) - Len(sourcepath$)))
+Else
+    sourcepath$ = _Trim$(Left$(args$, InStr(UCase$(args$), " AS ")))
+    targetpath$ = _Trim$(Right$(args$, Len(args$) - (InStr(UCase$(args$), " AS ") + 3)))
+End If
+If InStr(UCase$(args$), " AS ") = 0 And InStr(targetpath$, " ") > 0 Then
+    Print "Syntax for paths with spaces: RENAME file/dir AS new name"
     Return
 ElseIf Not _FileExists(sourcepath$) And Not _DirExists(sourcepath$) Then
     Print "Source path needs to be a file or directory."
