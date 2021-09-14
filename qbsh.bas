@@ -35,6 +35,7 @@ Do
         Case "MAKEDIR": GoSub MAKEDIR
         Case "RENAME", "NAME", "MOVE": GoSub RENAME
         Case "OS": Print _OS$
+        Case "PI": Print _Pi
         Case "PRINT": GoSub OUT1
         Case "PLAY": GoSub PLAYSOUND
         Case "RAND": GoSub RANDNUM
