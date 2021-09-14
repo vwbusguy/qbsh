@@ -33,6 +33,7 @@ Do
         Case "DEVICES": GoSub LSDEV
         Case "ENV": GoSub ENV
         Case "MAKEDIR": GoSub MAKEDIR
+        Case "RENAME", "NAME", "MOVE": GoSub RENAME
         Case "OS": Print _OS$
         Case "PRINT": GoSub OUT1
         Case "PLAY": GoSub PLAYSOUND
@@ -190,6 +191,7 @@ Print "OS - Display the Operating System type"
 Print "PLAY <Notes> - Play sounds and rock out!"
 Print "PRINT - Output some text"
 Print "RAND <Optional Limit> - Random number generator"
+Print "RENAME <File/Dir> <New Name> - Rename a file or directory"
 Print "READFILE <file> - Output some text file to terminal"
 Print "RMDIR <Directory> - Delete a directory"
 Print "TIME - Current time"
@@ -321,6 +323,31 @@ REMDIRERR:
 Print "Couldn't remove "; args$; ".  Likely the directory is not empty or user lacks permissions."
 Beep
 Resume Next
+Return
+
+RENAME:
+If args$ = "" Then
+    Print "RENAME <FILE/DIR> <NEW NAME>"
+    Return
+End If
+sourcepath$ = _Trim$(Left$(args$, InStr(args$, " ")))
+targetpath$ = _Trim$(Right$(args$, Len(args$) - Len(sourcepath$)))
+If InStr(targetpath$, " ") > 0 Then
+    Print "qbsh does not yet support filesystem paths with spaces in them."
+    Return
+ElseIf Not _FileExists(sourcepath$) And Not _DirExists(sourcepath$) Then
+    Print "Source path needs to be a file or directory."
+    Return
+Else
+    On Error GoTo RENAMEERR
+    Name sourcepath$ As targetpath$
+End If
+Return
+
+RENAMEERR:
+Print "Failed to rename "; sourcepath$; "to "; targetpath$; ".  Likely user lacks permissions or target path doesn't exist."
+Beep
+Resume MAIN
 Return
 
 'Give a way to clo(se this because this isn't vim

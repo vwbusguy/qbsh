@@ -50,6 +50,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `PRINT` - Output some text (is there an echo in here?)
 * `RAND <Optional Limit>` - Random number generator, defaults to 0-10 and supports negative numbers
 * `READFILE <file>` - Output some text file to terminal (cat also works)
+* `RENAME <File/Dir> <New Name>` - Rename a file or directory (also, MOVE or NAME)
 * `RMDIR <Directory>` - Delete a directory
 * `TIME` - Current time
 * `WHO AM I` - Sometimes we all forget, right? (USER also works)
