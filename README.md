@@ -23,7 +23,7 @@ qbsh is now available through [quay.io](https://quay.io/repository/vwbusguy/qbsh
 
 ### Build it yourself
 
-A portable Containerfile is provided for use in podman or docker, but the ./make_container_image.sh script will freshly compile a binary and build a container in one shot.  It should work as long as you have podman and qb64 installed in your path and your system has a compatible GLIB version to Fedora.
+A portable Containerfile is provided for use in podman or docker with `podman build -t qbsh .` .  Note that this is a multi-stage Containerfile so older Docker versions (such as in RHEL 7) will not work, but podman should generally work.
 
 Once it's done, you can run it with:
 
