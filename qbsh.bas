@@ -22,8 +22,8 @@ Do
         args$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
     End If
     Select Case UCase$(refcmd$)
-        Case "EXIT", "QUIT": GoSub quit
-        Case "HELP": GoSub HELP1
+        Case "EXIT", "QUIT": GoSub QUIT
+        Case "HELP": GoSub HELP
         Case "CD": GoSub CDIR
         Case "DEL", "DELETE", "RM": GoSub DEL
         Case "CALC": GoSub CALC
@@ -36,13 +36,13 @@ Do
         Case "RENAME", "NAME", "MOVE": GoSub RENAME
         Case "OS": Print _OS$
         Case "PI": Print _Pi
-        Case "PRINT": GoSub OUT1
+        Case "PRINT": GoSub OUTCMD
         Case "PLAY": GoSub PLAYSOUND
         Case "RAND": GoSub RANDNUM
         Case "RMDIR": GoSub REMDIR
         Case "TIME": Print Time$
         Case "USER", "WHO": Print Environ$("USER")
-        Case "READFILE", "CAT": GoSub READFILE1
+        Case "READFILE", "CAT": GoSub READFILE
         Case Else: GoSub CMDOUT
     End Select
 Loop
@@ -171,6 +171,7 @@ Else
 End If
 Return
 
+'General Error handler so xmessage doesn't get triggered
 GENERALERROR:
 Print "Something went terribly wrong.  Here's all we know:"
 Print "Error"; Err; "on program file line"; _ErrorLine
@@ -179,7 +180,7 @@ Resume MAIN
 Return
 
 'Tell users some of what we can do
-HELP1:
+HELP:
 Print "Try One of These Commands:"
 Print "CALC - Add, Subtract, Multiply, and Divide"
 Print "CLEAR - Clear the current screen"
@@ -201,8 +202,8 @@ Print
 Print "To exit the shell, run `exit`"
 Return
 
-INIT:
 'Get current path and change to proper place
+INIT:
 SELFPATH$ = Environ$("_")
 If SELFPATH$ = "" Or InStr(SELFPATH$, ".") = 1 Then
     If InStr(Command$(0), ".") = 1 Then
@@ -214,6 +215,7 @@ End If
 ChDir (_StartDir$)
 Return
 
+'List current input devices
 LSDEV:
 For I = 1 To _Devices
     Print _Device$(I)
@@ -238,7 +240,7 @@ Resume Next
 Return
 
 'Is there an echo in here?
-OUT1:
+OUTCMD:
 Print args$
 Return
 
@@ -290,7 +292,7 @@ Print Int(Rnd * (randlimit + 1) * posnegmod)
 Return
 
 'This sub reads a file.
-READFILE1:
+READFILE:
 tmpfileloc$ = args$
 If Not _FileExists(tmpfileloc$) Then
     Print "File not found."
@@ -326,6 +328,7 @@ Beep
 Resume Next
 Return
 
+'Rename/Move a file or folder
 RENAME:
 If args$ = "" Then
     Print "RENAME <FILE/DIR> <NEW NAME>"
@@ -357,7 +360,7 @@ Resume MAIN
 Return
 
 'Give a way to clo(se this because this isn't vim
-quit:
+QUIT:
 System
 
 'A friendly greeting
