@@ -1,0 +1,15 @@
+FROM quay.io/fedora/fedora:34-aarch64 as builder
+
+WORKDIR /tmp
+RUN dnf install gcc g++ git alsa-lib{,-devel} binutils findutils libglvnd-{devel,glx} mesa-libGLU{,-devel} zlib-devel -y
+RUN git clone https://github.com/QB64Team/qb64
+WORKDIR /tmp/qb64
+RUN sed -i 's,exit 1,,g' ./setup_lnx.sh
+RUN ./setup_lnx.sh 
+COPY qbsh.bas /tmp/qbsh.bas
+RUN ./qb64 -x /tmp/qbsh.bas -o /tmp/qbsh
+
+FROM quay.io/fedora/fedora:34-aarch64 
+
+COPY --from=builder /tmp/qbsh /usr/bin/qbsh
+ENTRYPOINT qbsh
