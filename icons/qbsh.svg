@@ -1,0 +1,77 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="16.0px"
+   height="16.0px"
+   viewBox="0 0 16.0 16.0"
+   version="1.1"
+   id="SVGRoot"
+   sodipodi:docname="qbsh.svg"
+   inkscape:version="1.1 (c68e22c387, 2021-05-23)"
+   inkscape:export-filename="/home/scott/Projects/qbsh/qbsh-512.png"
+   inkscape:export-xdpi="3072"
+   inkscape:export-ydpi="3072"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview221"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:pageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:document-units="px"
+     showgrid="true"
+     inkscape:zoom="21.061302"
+     inkscape:cx="1.3531927"
+     inkscape:cy="-1.0445698"
+     inkscape:window-width="1920"
+     inkscape:window-height="1011"
+     inkscape:window-x="0"
+     inkscape:window-y="0"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1">
+    <inkscape:grid
+       type="xygrid"
+       id="grid227" />
+  </sodipodi:namedview>
+  <defs
+     id="defs216" />
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1">
+    <path
+       style="mix-blend-mode:normal;fill:#d2d2d2;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:0.27767721;fill-opacity:1"
+       d="M 1,5 V 0 H 0 V 16 H 1 V 5 0 H 16 V 1 H 1 Z"
+       id="path1551" />
+    <path
+       style="fill:#d2d2d2;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="M 0,15 H 15 V 1 h 1 V 16 H 0 Z"
+       id="path11816" />
+    <path
+       style="fill:#2761ce;stroke:none;stroke-width:1px;stroke-linecap:butt;stroke-linejoin:miter;stroke-opacity:1;fill-opacity:1"
+       d="M 1,1 H 15 V 15 H 1 Z"
+       id="path11907" />
+    <text
+       xml:space="preserve"
+       style="font-style:normal;font-weight:normal;font-size:8.50884px;line-height:0;font-family:sans-serif;letter-spacing:-0.75px;fill:#d4d500;fill-opacity:0.987484;stroke:none;stroke-width:0.212721"
+       x="1.0555778"
+       y="11.49043"
+       id="text23194"
+       transform="scale(1.0526377,0.94999447)"><tspan
+         sodipodi:role="line"
+         id="tspan23192"
+         x="1.0555778"
+         y="11.49043"
+         style="line-height:1.85;stroke-width:0.212721"><tspan
+           style="font-weight:bold;line-height:1.85"
+           id="tspan60950">Q</tspan><tspan
+           style="font-weight:bold;font-size:8px;line-height:1.85;fill:#5bff00;fill-opacity:0.987484"
+           id="tspan56088">&gt;</tspan></tspan></text>
+  </g>
+</svg>
