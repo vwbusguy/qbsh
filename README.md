@@ -1,3 +1,5 @@
+![qbsh icon](icons/qbsh-128.png) 
+
 QBSH - Quick BASIC Shell
 ========================
 
