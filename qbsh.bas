@@ -57,12 +57,12 @@ If InStr(baseval$, " ") < 2 Then
 End If
 v1# = Val(Left$(baseval$, InStr(baseval$, " ")))
 baseval2$ = Right$(baseval$, Len(baseval$) - InStr(baseval$, " "))
-If InStr(baseval2$, " ") < 2 Then
+If InStr(baseval2$, " ") < 2 AND InStr(baseval2$, "r") <> 1 Then
     Print "Improper CALC Syntax.  Ex: 1 + 2"
     Return
 End If
 oper$ = Left$(baseval2$, 1)
-If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "x" And oper$ <> "/" And oper$ <> "%" Then
+If oper$ <> "+" And oper$ <> "-" And oper$ <> "*" And oper$ <> "x" And oper$ <> "/" And oper$ <> "%" And oper$ <> "^" And oper$ <> "r" Then
     Print "Improper CALC Syntax.  Ex: 1 + 2"
     Return
 End If
@@ -86,6 +86,10 @@ Select Case oper$
         Else
             Print v1# Mod v2#
         End If
+    Case "^"
+        Print v1# ^ v2#
+    Case "r"
+        Print Sqr(v1#)
 End Select
 Return
 
