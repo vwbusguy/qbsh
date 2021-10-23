@@ -1,5 +1,7 @@
 ![qbsh icon](icons/qbsh-128.png) 
 
+[![Docker Repository on Quay](https://quay.io/repository/vwbusguy/qbsh/status "Docker Repository on Quay")](https://quay.io/repository/vwbusguy/qbsh)
+
 QBSH - Quick BASIC Shell
 ========================
 
