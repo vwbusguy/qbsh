@@ -6,46 +6,26 @@ _Source _Console
 Screen 0
 
 GoSub INIT
-GoSub WELCOME
 
 MAIN:
-Do
-    On Error GoTo GENERALERROR
-    GoSub PROMPT
-    Line Input ""; cmd$
-    cmd$ = _Trim$(cmd$)
-    If InStr(cmd$, " ") = 0 Then
-        refcmd$ = cmd$
-        args$ = ""
-    Else
-        refcmd$ = Left$(cmd$, InStr(cmd$, " ") - 1)
-        args$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
+If _Trim$(Command$) = "" Then
+    GoSub WELCOME
+    Do
+        On Error GoTo GENERALERROR
+        GoSub PROMPT
+        Line Input ""; cmd$
+        GoSub ROUTECMD
+    Loop
+Else
+    If _FileExists(_Trim$(Command$)) Then
+        Open _Trim$(Command$) For Input As #5
+        Do Until EOF(5)
+            Line Input #5, cmd$ 'read entire text file line
+            GoSub ROUTECMD
+        Loop
+        Close #5
     End If
-    Select Case UCase$(refcmd$)
-        Case "EXIT", "QUIT": GoSub QUIT
-        Case "HELP": GoSub HELP
-        Case "CD": GoSub CDIR
-        Case "DEL", "DELETE", "RM": GoSub DEL
-        Case "CALC": GoSub CALC
-        Case "CHRISTMAS": GoSub CHRISTMAS
-        Case "CLEAR", "CLS": GoSub CLEARSCR
-        Case "DATE": Print Date$
-        Case "DEVICES": GoSub LSDEV
-        Case "ENV": GoSub ENV
-        Case "MAKEDIR": GoSub MAKEDIR
-        Case "RENAME", "NAME", "MOVE": GoSub RENAME
-        Case "OS": Print _OS$
-        Case "PI": Print _Pi
-        Case "PRINT": GoSub OUTCMD
-        Case "PLAY": GoSub PLAYSOUND
-        Case "RAND": GoSub RANDNUM
-        Case "RMDIR": GoSub REMDIR
-        Case "TIME": Print Time$
-        Case "USER", "WHO": Print Environ$("USER")
-        Case "READFILE", "CAT": GoSub READFILE
-        Case Else: GoSub CMDOUT
-    End Select
-Loop
+End If
 System
 
 'Add, Subtract, Multiply, and Divide
@@ -57,7 +37,7 @@ If InStr(baseval$, " ") < 2 Then
 End If
 v1# = Val(Left$(baseval$, InStr(baseval$, " ")))
 baseval2$ = Right$(baseval$, Len(baseval$) - InStr(baseval$, " "))
-If InStr(baseval2$, " ") < 2 AND InStr(baseval2$, "r") <> 1 Then
+If InStr(baseval2$, " ") < 2 And InStr(baseval2$, "r") <> 1 Then
     Print "Improper CALC Syntax.  Ex: 1 + 2"
     Return
 End If
@@ -112,6 +92,7 @@ Return
 'Is it Easter or Christmas?
 CHRISTMAS:
 Play "t140o2p4g2e4.f8g4o3c2o2b8o3c8d4c4o2b4a8g2.o2b8o3c8d4c4o2b4a8a8g8o3c4o2e8e4g8a8g4f4e4f4g2.g2e4.f8g4o3c2o2b8o3c8d4c4o2b4a8g2.o2b8o3c8d4c4o2b4a8a8g8o3c4o2e8e4g8a8g4f4e4d4c2.c4a4a4o3c4c4o2b4a4g4e4f4a4g4f4e2.e8e8d4d4g4g4b4b4o3d4d8o2b8o3d4c4o2b4a4g4p4g2g2e4.f8g4o3c2o2b8o3c8d4c4o2b4a8g8g2.o2b8o3c8d4c4o2b4a8a8g8o3c4o2e8e4g8a8g4f4e4d4c2.p4t180g8g8g4g4g4a8g8g4g4g4a4g4e4g4d1t180g8g8g4g4g4a8g8g4g4g4g8g8g4a4b4o3c2c4p1"
+Sleep 65
 Return
 
 'Clear the screen and display welcome text
@@ -361,6 +342,42 @@ RENAMEERR:
 Print "Failed to rename "; sourcepath$; "to "; targetpath$; ".  Likely user lacks permissions or target path doesn't exist."
 Beep
 Resume MAIN
+Return
+
+'Route commands to right function
+ROUTECMD:
+cmd$ = _Trim$(cmd$)
+If InStr(cmd$, " ") = 0 Then
+    refcmd$ = cmd$
+    args$ = ""
+Else
+    refcmd$ = Left$(cmd$, InStr(cmd$, " ") - 1)
+    args$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
+End If
+Select Case UCase$(refcmd$)
+    Case "EXIT", "QUIT": GoSub QUIT
+    Case "HELP": GoSub HELP
+    Case "CD": GoSub CDIR
+    Case "DEL", "DELETE", "RM": GoSub DEL
+    Case "CALC": GoSub CALC
+    Case "CHRISTMAS": GoSub CHRISTMAS
+    Case "CLEAR", "CLS": GoSub CLEARSCR
+    Case "DATE": Print Date$
+    Case "DEVICES": GoSub LSDEV
+    Case "ENV": GoSub ENV
+    Case "MAKEDIR": GoSub MAKEDIR
+    Case "RENAME", "NAME", "MOVE": GoSub RENAME
+    Case "OS": Print _OS$
+    Case "PI": Print _Pi
+    Case "PRINT": GoSub OUTCMD
+    Case "PLAY": GoSub PLAYSOUND
+    Case "RAND": GoSub RANDNUM
+    Case "RMDIR": GoSub REMDIR
+    Case "TIME": Print Time$
+    Case "USER", "WHO": Print Environ$("USER")
+    Case "READFILE", "CAT": GoSub READFILE
+    Case Else: GoSub CMDOUT
+End Select
 Return
 
 'Give a way to clo(se this because this isn't vim
