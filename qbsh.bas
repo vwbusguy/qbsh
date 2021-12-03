@@ -25,7 +25,7 @@ Else
         Loop
         Close #5
     Else
-        PRINT "Couldn't open " Command$ ".  Cannot continue."
+        Print "Couldn't open "; Command$; ".  Cannot continue."
     End If
 End If
 System
@@ -356,6 +356,7 @@ Else
     refcmd$ = Left$(cmd$, InStr(cmd$, " ") - 1)
     args$ = Right$(cmd$, Len(cmd$) - InStr(cmd$, " "))
 End If
+If cmd$ = "" Or InStr(cmd$, "'") = 1 Then Return
 Select Case UCase$(refcmd$)
     Case "EXIT", "QUIT": GoSub QUIT
     Case "HELP": GoSub HELP

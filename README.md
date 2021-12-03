@@ -65,6 +65,8 @@ qbsh can be scripted using the above commands in a file.  See the examples direc
 
 `$ qbsh examples/hello.qsh`
 
+Scripts can be padded with empty lines or indents.  To add comments, just begin the line with a single quote (').
+
 # Development
 
 Current code architecture is that the MAIN loop routes the input to the appropriate sub via GoSub and a loop, so no GoTo's are currently used.  Eventually this may get big enough to refactor into other files, but for now all sub/labels are given alphabetically with a one line code comment above describing what they do.
