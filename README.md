@@ -59,6 +59,12 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `TIME` - Current time
 * `WHO AM I` - Sometimes we all forget, right? (USER also works)
 
+## Scripting
+
+qbsh can be scripted using the above commands in a file.  See the examples directory to get started.  To run a script just run qbsh with the script file.  
+
+`$ qbsh examples/hello.qsh`
+
 # Development
 
 Current code architecture is that the MAIN loop routes the input to the appropriate sub via GoSub and a loop, so no GoTo's are currently used.  Eventually this may get big enough to refactor into other files, but for now all sub/labels are given alphabetically with a one line code comment above describing what they do.
@@ -69,5 +75,5 @@ Here's a list of low hanging fruit for ways this can be improved:
 * Eliminate the file buffer from system shell calls as this is not great for security and less cross-compatible with Windows, etc.
 * Add native means of listing contents of the current directory 
 * Add a means of storing output to a re-usable var in the shell
-* Feed commands through the shell in a script file
+* ~~Feed commands through the shell in a script file~~
 * ~~Ship container images on quay.io and/or Docker Hub~~
