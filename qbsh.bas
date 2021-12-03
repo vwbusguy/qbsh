@@ -24,6 +24,8 @@ Else
             GoSub ROUTECMD
         Loop
         Close #5
+    Else
+        PRINT "Couldn't open " Command$ ".  Cannot continue."
     End If
 End If
 System
