@@ -30,6 +30,33 @@ Else
 End If
 System
 
+'Very important 8Ball function
+EIGHTBALL:
+Dim BALLREPLY$(1 To 20)
+BALLREPLY$(1) = "It is certain."
+BALLREPLY$(2) = "It is decidedly so."
+BALLREPLY$(3) = "Without a doubt."
+BALLREPLY$(4) = "Yes definitely."
+BALLREPLY$(5) = "Very doubtful."
+BALLREPLY$(6) = "You may rely on it."
+BALLREPLY$(7) = "As I see it, yes."
+BALLREPLY$(8) = "Most likely."
+BALLREPLY$(9) = "Outlook good."
+BALLREPLY$(10) = "Yes."
+BALLREPLY$(11) = "Signs point to yes."
+BALLREPLY$(12) = "Reply hazy, try again."
+BALLREPLY$(13) = "Ask again later."
+BALLREPLY$(14) = "Better not tell you now."
+BALLREPLY$(15) = "Cannot predict now."
+BALLREPLY$(16) = "Concentrate and ask again."
+BALLREPLY$(17) = "Don't count on it."
+BALLREPLY$(18) = "My reply is no."
+BALLREPLY$(19) = "My sources say no."
+BALLREPLY$(20) = "Outlook not so good."
+BALLREPLYSEL% = Int(Rnd * 6) + 1
+Print BALLREPLY$(BALLREPLYSEL%)
+Return
+
 'Add, Subtract, Multiply, and Divide
 CALC:
 baseval$ = args$
@@ -169,6 +196,7 @@ Return
 'Tell users some of what we can do
 HELP:
 Print "Try One of These Commands:"
+Print "8BALL - Answers to life's deepest questions."
 Print "CALC - Add, Subtract, Multiply, and Divide"
 Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
@@ -360,6 +388,7 @@ If cmd$ = "" Or InStr(cmd$, "'") = 1 Then Return
 Select Case UCase$(refcmd$)
     Case "EXIT", "QUIT": GoSub QUIT
     Case "HELP": GoSub HELP
+    Case "8BALL": GoSub EIGHTBALL
     Case "CD": GoSub CDIR
     Case "DEL", "DELETE", "RM": GoSub DEL
     Case "CALC": GoSub CALC

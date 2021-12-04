@@ -41,6 +41,7 @@ The syntax is very, well, basic.  It's simple commands (usually upper-case) with
 
 Typing "HELP" (or "help") will bring up a quick list of some command possibilities.  While this is periodically updated, it is not an exhaustive list.
 
+* `8BALL` - Answers to life's deepest questions
 * `CALC` - Add, Subtract, Multiply, and Divide
 * `CD` - Change working directory
 * `CLEAR` - Clear the current screen
