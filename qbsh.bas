@@ -16,17 +16,24 @@ If _Trim$(Command$) = "" Then
         Line Input ""; cmd$
         GoSub ROUTECMD
     Loop
+ElseIf InStr(_Trim$(Command$), "-x") = 1 Then
+    cmd$ = Right$(_Trim$(Command$), Len(_Trim$(Command$)) - 2)
+    GoSub ROUTECMD
+ElseIf _FileExists(_Trim$(Command$)) Then
+    Open _Trim$(Command$) For Input As #5
+    Do Until EOF(5)
+        Line Input #5, cmd$ 'read entire text file line
+        GoSub ROUTECMD
+    Loop
+    Close #5
 Else
-    If _FileExists(_Trim$(Command$)) Then
-        Open _Trim$(Command$) For Input As #5
-        Do Until EOF(5)
-            Line Input #5, cmd$ 'read entire text file line
-            GoSub ROUTECMD
-        Loop
-        Close #5
-    Else
-        Print "Couldn't open "; Command$; ".  Cannot continue."
-    End If
+    Print "QBSH - Quick BASIC Shell"
+    Print
+    Print "Run without args to run qbsh interactively."
+    Print "Pass a script file as an argument to run a script."
+    Print "Run a single command with -x."
+    Print
+    GoSub HELP
 End If
 System
 
@@ -214,7 +221,7 @@ Print "RMDIR <Directory> - Delete a directory"
 Print "TIME - Current time"
 Print "WHO AM I - Sometimes we all forget, right?"
 Print
-Print "To exit the shell, run `exit`"
+Print "To exit the interactive shell, run `QUIT`"
 Return
 
 'Get current path and change to proper place

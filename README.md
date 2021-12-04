@@ -60,6 +60,8 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `TIME` - Current time
 * `WHO AM I` - Sometimes we all forget, right? (USER also works)
 
+Commands can also be ran ad-hoc apart from scripting or interactive shell by passing them with `qbsh -x`.
+
 ## Scripting
 
 qbsh can be scripted using the above commands in a file.  See the examples directory to get started.  To run a script just run qbsh with the script file.  
