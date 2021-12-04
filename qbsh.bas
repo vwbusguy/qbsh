@@ -53,7 +53,7 @@ BALLREPLY$(17) = "Don't count on it."
 BALLREPLY$(18) = "My reply is no."
 BALLREPLY$(19) = "My sources say no."
 BALLREPLY$(20) = "Outlook not so good."
-BALLREPLYSEL% = Int(Rnd * 6) + 1
+BALLREPLYSEL% = Int(Rnd * 20) + 1
 Print BALLREPLY$(BALLREPLYSEL%)
 Return
 
@@ -219,6 +219,7 @@ Return
 
 'Get current path and change to proper place
 INIT:
+Randomize Timer
 SELFPATH$ = Environ$("_")
 If SELFPATH$ = "" Or InStr(SELFPATH$, ".") = 1 Then
     If InStr(Command$(0), ".") = 1 Then
