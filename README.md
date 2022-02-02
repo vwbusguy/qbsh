@@ -46,7 +46,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `CD` - Change working directory
 * `CLEAR` - Clear the current screen
 * `DATE` - Today's Date
-* `DELETE` - Delete a file
+* `DELETE` - Delete a file.  (ERA and ERASE also work.)
 * `DEVICES` - Display info about attached input devices
 * `ENV <Optional Key>` - Print Environment
 * `MAKEDIR <directory>` - Make a new directory
@@ -54,8 +54,8 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `PLAY <Notes>` - Make some music and rock out
 * `PRINT` - Output some text (is there an echo in here?)
 * `RAND <Optional Limit>` - Random number generator, defaults to 0-10 and supports negative numbers
-* `READFILE <file>` - Output some text file to terminal (cat also works)
-* `RENAME <File/Dir> <New Name>` - Rename a file or directory (also, MOVE or NAME)
+* `READFILE <file>` - Output some text file to terminal (cat and TYPE also work)
+* `RENAME <File/Dir> <New Name>` - Rename a file or directory (also, MOVE, NAME, or REN)
 * `RMDIR <Directory>` - Delete a directory
 * `TIME` - Current time
 * `WHO AM I` - Sometimes we all forget, right? (USER also works)
