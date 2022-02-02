@@ -398,7 +398,7 @@ Select Case UCase$(refcmd$)
     Case "HELP": GoSub HELP
     Case "8BALL": GoSub EIGHTBALL
     Case "CD": GoSub CDIR
-    Case "DEL", "DELETE", "RM": GoSub DEL
+    Case "DEL", "DELETE", "RM", "ERA", "ERASE": GoSub DEL
     Case "CALC": GoSub CALC
     Case "CHRISTMAS": GoSub CHRISTMAS
     Case "CLEAR", "CLS": GoSub CLEARSCR
@@ -406,7 +406,7 @@ Select Case UCase$(refcmd$)
     Case "DEVICES": GoSub LSDEV
     Case "ENV": GoSub ENV
     Case "MAKEDIR": GoSub MAKEDIR
-    Case "RENAME", "NAME", "MOVE": GoSub RENAME
+    Case "RENAME", "NAME", "MOVE", "REN": GoSub RENAME
     Case "OS": Print _OS$
     Case "PI": Print _Pi
     Case "PRINT": GoSub OUTCMD
@@ -415,7 +415,7 @@ Select Case UCase$(refcmd$)
     Case "RMDIR": GoSub REMDIR
     Case "TIME": Print Time$
     Case "USER", "WHO": Print Environ$("USER")
-    Case "READFILE", "CAT": GoSub READFILE
+    Case "READFILE", "CAT", "TYPE": GoSub READFILE
     Case Else: GoSub CMDOUT
 End Select
 Return
