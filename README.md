@@ -51,6 +51,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `ENV <Optional Key>` - Print Environment
 * `MAKEDIR <directory>` - Make a new directory
 * `OS` - Print the operating system type
+* `PIP <DEST>=<SRC> - Copy a file to a new path, CP/M style.`
 * `PLAY <Notes>` - Make some music and rock out
 * `PRINT` - Output some text (is there an echo in here?)
 * `RAND <Optional Limit>` - Random number generator, defaults to 0-10 and supports negative numbers
