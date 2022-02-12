@@ -8,6 +8,7 @@ Screen 0
 GoSub INIT
 
 MAIN:
+script_mode = False
 If _Trim$(Command$) = "" Then
     GoSub WELCOME
     Do
@@ -20,6 +21,7 @@ ElseIf InStr(_Trim$(Command$), "-x") = 1 Then
     cmd$ = Right$(_Trim$(Command$), Len(_Trim$(Command$)) - 2)
     GoSub ROUTECMD
 ElseIf _FileExists(_Trim$(Command$)) Then
+    script_mode = True
     Open _Trim$(Command$) For Input As #5
     Do Until EOF(5)
         Line Input #5, cmd$ 'read entire text file line
@@ -278,6 +280,13 @@ src$ = Right$(args$, Len(args$) - InStr(args$, "="))
 If Not _FileExists(src$) Then
     Print src$; " does not exist or isn't readable."
     Return
+End If
+If Not script_mode And _FileExists(dest$) Then
+    Print dest$; " exists."
+    Input "Overwrite? (Y/N) ", confirm$
+    If UCase$(confirm$) <> "YES" And UCase$(confirm$) <> "Y" Then
+        Return
+    End If
 End If
 If _DirExists(dest$) Then
     srcfile$ = src$
