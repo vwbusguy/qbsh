@@ -275,7 +275,7 @@ If args$ = "" Or InStr(args$, "=") < 2 Then
 End If
 dest$ = Left$(args$, InStr(args$, "=") - 1)
 src$ = Right$(args$, Len(args$) - InStr(args$, "="))
-If Not _FileExists(src$) And Not _DirExists(src$) Then
+If Not _FileExists(src$) Then
     Print src$; " does not exist or isn't readable."
     Return
 End If
