@@ -267,6 +267,34 @@ OUTCMD:
 Print args$
 Return
 
+PIP:
+If args$ = "" Or InStr(args$, "=") < 2 Then
+    Print "PIP <DEST>=<SRC>"
+    Return
+End If
+dest$ = Left$(args$, InStr(args$, "=") - 1)
+src$ = Right$(args$, Len(args$) - InStr(args$, "="))
+If Not _FileExists(src$) And Not _DirExists(src$) Then
+    Print src$; " does not exist or isn't readable."
+    Return
+End If
+On Error GoTo PIPERR
+Open src$ For Binary As #1
+Open dest$ For Binary As #2
+ffbc$ = Space$(LOF(1))
+Get #1, , ffbc$
+Put #2, , ffbc$
+Close #1
+Close #2
+Return
+
+PIPERR:
+Print "Failed to copy "; src$; " to "; dest$; ".  Likely user lacks permissions or target path doesn't exist."
+Beep
+Resume MAIN
+Return
+
+
 'Make tunes and rock out
 PLAYSOUND:
 If args$ <> "" Then
@@ -409,6 +437,7 @@ Select Case UCase$(refcmd$)
     Case "RENAME", "NAME", "MOVE", "REN": GoSub RENAME
     Case "OS": Print _OS$
     Case "PI": Print _Pi
+    Case "PIP": GoSub PIP
     Case "PRINT": GoSub OUTCMD
     Case "PLAY": GoSub PLAYSOUND
     Case "RAND": GoSub RANDNUM
