@@ -447,6 +447,7 @@ Select Case UCase$(refcmd$)
     Case "EXIT", "QUIT": GoSub QUIT
     Case "HELP": GoSub HELP
     Case "8BALL": GoSub EIGHTBALL
+    Case "BEEP": Beep
     Case "CD": GoSub CDIR
     Case "DEL", "DELETE", "RM", "ERA", "ERASE": GoSub DEL
     Case "CALC": GoSub CALC
