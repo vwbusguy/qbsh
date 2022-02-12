@@ -278,7 +278,11 @@ End If
 dest$ = Left$(args$, InStr(args$, "=") - 1)
 src$ = Right$(args$, Len(args$) - InStr(args$, "="))
 If Not _FileExists(src$) Then
-    Print src$; " does not exist or isn't readable."
+    If _DirExists(src$) Then
+        Print src$; " is a directory.  Only regular files are supported for the source."
+    Else
+        Print src$; " does not exist or isn't readable."
+    End If
     Return
 End If
 If Not script_mode And _FileExists(dest$) Then
