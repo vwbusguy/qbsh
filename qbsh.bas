@@ -279,6 +279,18 @@ If Not _FileExists(src$) Then
     Print src$; " does not exist or isn't readable."
     Return
 End If
+If _DirExists(dest$) Then
+    srcfile$ = src$
+    If InStr(_OS$, "WINDOWS") > 0 Then
+        dirchar$ = "\"
+    Else
+        dirchar$ = "/"
+    End If
+    While InStr(srcfile$, dirchar$) > 0:
+        srcfile$ = Right$(srcfile$, Len(srcfile$) - InStr(srcfile$, dirchar$))
+    Wend
+    dest$ = dest$ + dirchar$ + srcfile$
+End If
 On Error GoTo PIPERR
 Open src$ For Binary As #1
 Open dest$ For Binary As #2
