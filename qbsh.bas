@@ -385,6 +385,9 @@ Return
 'This sub reads a file.
 READFILE:
 tmpfileloc$ = args$
+If InStr(tmpfileloc$, "~") = 1 And InStr(tmpfileloc$, "/") = 2 Then
+    tmpfileloc$ = Environ$("HOME") + "/" + Right$(tmpfileloc$, Len(tmpfileloc$) - 2)
+End If
 If Not _FileExists(tmpfileloc$) Then
     Print "File not found."
     Return
