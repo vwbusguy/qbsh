@@ -207,6 +207,7 @@ HELP:
 Print "Try One of These Commands:"
 Print "8BALL - Answers to life's deepest questions."
 Print "CALC - Add, Subtract, Multiply, and Divide"
+Print "CHDIR - Change working directory.  (Or CD)"
 Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
 Print "DELETE - Delete a file"
@@ -452,7 +453,7 @@ Select Case UCase$(refcmd$)
     Case "HELP": GoSub HELP
     Case "8BALL": GoSub EIGHTBALL
     Case "BEEP": Beep
-    Case "CD": GoSub CDIR
+    Case "CD", "CHDIR": GoSub CDIR
     Case "DEL", "DELETE", "RM", "ERA", "ERASE": GoSub DEL
     Case "CALC": GoSub CALC
     Case "CHRISTMAS": GoSub CHRISTMAS
