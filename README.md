@@ -43,7 +43,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 
 * `8BALL` - Answers to life's deepest questions
 * `CALC` - Add, Subtract, Multiply, and Divide
-* `CD` - Change working directory
+* `CHDIR` - Change working directory (also, CD)
 * `CLEAR` - Clear the current screen
 * `DATE` - Today's Date
 * `DELETE` - Delete a file.  (ERA and ERASE also work.)
