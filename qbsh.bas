@@ -113,9 +113,15 @@ Return
 
 'Change working directory
 CDIR:
-If _DirExists(args$) Then
+dir$ = args$
+If dir$ = "" Then
+    dir$ = Environ$("HOME")
+ElseIf InStr(dir$, "~") = 1 And InStr(dir$, "/") = 2 Then
+    dir$ = Environ$("HOME") + "/" + Right$(dir$, Len(dir$) - 2)
+End If
+If _DirExists(dir$) Then
     On Error GoTo CDIRERR
-    ChDir args$
+    ChDir dir$
 Else
     Print "CD <DIRECTORY>"
 End If
