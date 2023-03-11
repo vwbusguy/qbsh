@@ -164,6 +164,9 @@ Return
 'Delete a file path
 DEL:
 pathspec$ = args$
+If InStr(pathspec$, "~") = 1 And InStr(pathspec$, "/") = 2 Then
+    pathspec$ = Environ$("HOME") + "/" + Right$(pathspec$, Len(pathspec$) - 2)
+End If
 If _FileExists(pathspec$) Then
     On Error GoTo DELERR
     Kill pathspec$
@@ -258,9 +261,13 @@ Return
 
 'Make a new directory
 MAKEDIR:
-If args$ <> "" Then
+dir$ = args$
+If InStr(dir$, "~") = 1 And InStr(dir$, "/") = 2 Then
+    dir$ = Environ$("HOME") + "/" + Right$(dir$, Len(dir$) - 2)
+End If
+If dir$ <> "" Then
     On Error GoTo MAKEDIRERR
-    MkDir args$
+    MkDir dir$
 Else
     Print "MAKEDIR <New Directory Path>"
 End If
@@ -398,6 +405,9 @@ Return
 'Remove directory
 REMDIR:
 path$ = args$
+If InStr(path$, "~") = 1 And InStr(path$, "/") = 2 Then
+    path$ = Environ$("HOME") + "/" + Right$(path$, Len(path$) - 2)
+End If
 If path$ <> "" And _DirExists(path$) Then
     On Error GoTo REMDIRERR
     RmDir path$
@@ -424,6 +434,12 @@ If InStr(UCase$(args$), " AS ") = 0 Then
 Else
     sourcepath$ = _Trim$(Left$(args$, InStr(UCase$(args$), " AS ")))
     targetpath$ = _Trim$(Right$(args$, Len(args$) - (InStr(UCase$(args$), " AS ") + 3)))
+End If
+If InStr(sourcepath$, "~") = 1 And InStr(sourcepath$, "/") = 2 Then
+    sourcepath$ = Environ$("HOME") + "/" + Right$(sourcepath$, Len(sourcepath$) - 2)
+End If
+If InStr(targetpath$, "~") = 1 And InStr(targetpath$, "/") = 2 Then
+    targetpath$ = Environ$("HOME") + "/" + Right$(targetpath$, Len(targetpath$) - 2)
 End If
 If InStr(UCase$(args$), " AS ") = 0 And InStr(targetpath$, " ") > 0 Then
     Print "Syntax for paths with spaces: RENAME file/dir AS new name"
