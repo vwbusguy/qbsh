@@ -291,6 +291,12 @@ If args$ = "" Or InStr(args$, "=") < 2 Then
 End If
 dest$ = Left$(args$, InStr(args$, "=") - 1)
 src$ = Right$(args$, Len(args$) - InStr(args$, "="))
+If InStr(dest$, "~") = 1 And InStr(dest$, "/") = 2 Then
+    dest$ = Environ$("HOME") + "/" + Right$(dest$, Len(dest$) - 2)
+End If
+If InStr(src$, "~") = 1 And InStr(src$, "/") = 2 Then
+    src$ = Environ$("HOME") + "/" + Right$(src$, Len(src$) - 2)
+End If
 If Not _FileExists(src$) Then
     If _DirExists(src$) Then
         Print src$; " is a directory.  Only regular files are supported for the source."
