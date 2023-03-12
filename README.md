@@ -5,7 +5,7 @@
 QBSH - Quick BASIC Shell
 ========================
 
-This is an attempt at making a command line shell with [QB64](https://www.qb64.com).  Unhandled commands are offloaded to the native shell (bash, etc.).  This is a very early project, so your mileage may vary and use this at your own risk!
+This is an attempt at making a command line shell with [QB64](https://www.qb64.com).  Unhandled commands are offloaded to the native shell (bash, etc.).  While it's reached a point of mild sanity, your mileage may vary, so use this at your own risk. 
 
 Try it with podman or docker:
 
@@ -83,3 +83,7 @@ Here's a list of low hanging fruit for ways this can be improved:
 * Add a means of storing output to a re-usable var in the shell
 * ~~Feed commands through the shell in a script file~~
 * ~~Ship container images on quay.io and/or Docker Hub~~
+
+# How To Pronounce it
+
+"Queue Bee Shell"
