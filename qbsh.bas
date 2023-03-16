@@ -113,12 +113,7 @@ Return
 
 'Change working directory
 CDIR:
-dir$ = args$
-If dir$ = "" Then
-    dir$ = Environ$("HOME")
-ElseIf InStr(dir$, "~") = 1 And InStr(dir$, "/") = 2 Then
-    dir$ = Environ$("HOME") + "/" + Right$(dir$, Len(dir$) - 2)
-End If
+dir$ = resolvePath$(args$)
 If _DirExists(dir$) Then
     On Error GoTo CDIRERR
     ChDir dir$
@@ -163,10 +158,7 @@ Return
 
 'Delete a file path
 DEL:
-pathspec$ = args$
-If InStr(pathspec$, "~") = 1 And InStr(pathspec$, "/") = 2 Then
-    pathspec$ = Environ$("HOME") + "/" + Right$(pathspec$, Len(pathspec$) - 2)
-End If
+pathspec$ = resolvePath$(args$)
 If _FileExists(pathspec$) Then
     On Error GoTo DELERR
     Kill pathspec$
@@ -261,10 +253,7 @@ Return
 
 'Make a new directory
 MAKEDIR:
-dir$ = args$
-If InStr(dir$, "~") = 1 And InStr(dir$, "/") = 2 Then
-    dir$ = Environ$("HOME") + "/" + Right$(dir$, Len(dir$) - 2)
-End If
+dir$ = resolvePath$(args$)
 If dir$ <> "" Then
     On Error GoTo MAKEDIRERR
     MkDir dir$
@@ -289,14 +278,8 @@ If args$ = "" Or InStr(args$, "=") < 2 Then
     Print "PIP <DEST>=<SRC>"
     Return
 End If
-dest$ = Left$(args$, InStr(args$, "=") - 1)
-src$ = Right$(args$, Len(args$) - InStr(args$, "="))
-If InStr(dest$, "~") = 1 And InStr(dest$, "/") = 2 Then
-    dest$ = Environ$("HOME") + "/" + Right$(dest$, Len(dest$) - 2)
-End If
-If InStr(src$, "~") = 1 And InStr(src$, "/") = 2 Then
-    src$ = Environ$("HOME") + "/" + Right$(src$, Len(src$) - 2)
-End If
+dest$ = resolvePath$(Left$(args$, InStr(args$, "=") - 1))
+src$ = resolvePath$(Right$(args$, Len(args$) - InStr(args$, "=")))
 If Not _FileExists(src$) Then
     If _DirExists(src$) Then
         Print src$; " is a directory.  Only regular files are supported for the source."
@@ -390,10 +373,7 @@ Return
 
 'This sub reads a file.
 READFILE:
-tmpfileloc$ = args$
-If InStr(tmpfileloc$, "~") = 1 And InStr(tmpfileloc$, "/") = 2 Then
-    tmpfileloc$ = Environ$("HOME") + "/" + Right$(tmpfileloc$, Len(tmpfileloc$) - 2)
-End If
+tmpfileloc$ = resolvePath$(args$)
 If Not _FileExists(tmpfileloc$) Then
     Print "File not found."
     Return
@@ -413,10 +393,7 @@ Return
 
 'Remove directory
 REMDIR:
-path$ = args$
-If InStr(path$, "~") = 1 And InStr(path$, "/") = 2 Then
-    path$ = Environ$("HOME") + "/" + Right$(path$, Len(path$) - 2)
-End If
+path$ = resolvePath$(args$)
 If path$ <> "" And _DirExists(path$) Then
     On Error GoTo REMDIRERR
     RmDir path$
@@ -444,12 +421,8 @@ Else
     sourcepath$ = _Trim$(Left$(args$, InStr(UCase$(args$), " AS ")))
     targetpath$ = _Trim$(Right$(args$, Len(args$) - (InStr(UCase$(args$), " AS ") + 3)))
 End If
-If InStr(sourcepath$, "~") = 1 And InStr(sourcepath$, "/") = 2 Then
-    sourcepath$ = Environ$("HOME") + "/" + Right$(sourcepath$, Len(sourcepath$) - 2)
-End If
-If InStr(targetpath$, "~") = 1 And InStr(targetpath$, "/") = 2 Then
-    targetpath$ = Environ$("HOME") + "/" + Right$(targetpath$, Len(targetpath$) - 2)
-End If
+sourcepath$ = resolvePath$(sourcepath$)
+targetpath$ = resolvePath$(targetpath$)
 If InStr(UCase$(args$), " AS ") = 0 And InStr(targetpath$, " ") > 0 Then
     Print "Syntax for paths with spaces: RENAME file/dir AS new name"
     Return
@@ -519,3 +492,5 @@ Print "WELCOME TO Quick Basic Shell, " + Environ$("USER")
 Print "Type HELP to see a list of commands."
 Print
 Return
+
+'$INCLUDE:'lib/io.bas'
