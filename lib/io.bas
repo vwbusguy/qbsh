@@ -1,3 +1,7 @@
+'Functions/Helpers for qbsh related to IO
+
+'resolvePath$ - Expands ~ prefix to $HOME.  Useful before doing filesystem operations
+'  RPATH$ - File-system path string
 FUNCTION resolvePath$(RPATH$)
     If RPATH$ = "~" Then
         RPATH$ = Environ$("HOME") + "/"
