@@ -114,11 +114,14 @@ Return
 'Change working directory
 CDIR:
 dir$ = resolvePath$(args$)
+If dir$ = "" Then
+	dir$ = Environ$("HOME")
+End If
 If _DirExists(dir$) Then
     On Error GoTo CDIRERR
     ChDir dir$
 Else
-    Print "CD <DIRECTORY>"
+    Print "CHDIR <DIRECTORY>"
 End If
 Return
 
