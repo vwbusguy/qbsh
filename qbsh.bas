@@ -150,7 +150,7 @@ buff_file$ = "/tmp/buff_qbsh_" + LTrim$(Str$(rndbuf))
 If _FileExists(buff_file$) Then
     Kill buff_file$
 End If
-Shell "SHELL='" + SELFPATH$ + "'; " + cmd$ + " 2>&1 >" + buff_file$
+Shell "SHELL='" + SELFPATH$ + "'; " + cmd$ + " 2>&1 | tee /dev/stderr > " + buff_file$
 Open buff_file$ For Binary As #1
 x$ = Space$(LOF(1))
 Get #1, , x$
