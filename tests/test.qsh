@@ -1,0 +1,29 @@
+#!/usr/local/bin/qbsh
+PRINT Starting General Tests
+PRINT =======
+PRINT
+DATE
+TIME
+PRINT Test Environment
+OS
+DEVICES
+WHO AM I
+PRINT Changing to home
+ENV HOME
+CHDIR
+PRINT Writing a test directory
+MAKEDIR ~/qb64-test
+PRINT Renaming a test directory
+RENAME qb64-test ~/qb64-test2
+RMDIR ~/qb64-test2
+PRINT Testing Calculator
+CALC 5 - 1
+CALC 5 + 1
+CALC 5 x 3
+CALC 5 / 9
+CALC 6 ^ 2
+CALC 6 r 4
+RAND
+RAND 500
+PRINT Will this test pass?
+8BALL Will this test pass?
