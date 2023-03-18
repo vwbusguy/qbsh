@@ -7,6 +7,7 @@ WORKDIR /tmp/qb64
 RUN sed -i 's,exit 1,,g' ./setup_lnx.sh
 RUN ./setup_lnx.sh 
 COPY qbsh.bas /tmp/qbsh.bas
+COPY lib/ /tmp/lib/
 RUN ./qb64 -x /tmp/qbsh.bas -o /tmp/qbsh
 
 FROM fedora:37
