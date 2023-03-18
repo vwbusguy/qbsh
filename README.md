@@ -71,6 +71,12 @@ qbsh can be scripted using the above commands in a file.  See the examples direc
 
 Scripts can be padded with empty lines or indents.  To add comments, just begin the line with a single quote (').
 
+### Scripting specific commands
+
+Additional commands specific to scripts:
+
+* `LPRINT` - Output some text without a new space after.  Useful for chaining command outputs on the same line of output.
+
 # Development
 
 Current code architecture is that the MAIN loop routes the input to the appropriate sub via GoSub and a loop, so no GoTo's are currently used.  Eventually this may get big enough to refactor into other files, but for now all sub/labels are given alphabetically with a one line code comment above describing what they do.

@@ -273,7 +273,11 @@ Return
 
 'Is there an echo in here?
 OUTCMD:
-Print args$
+If script_mode = True And refcmd$ = "LPRINT" Then
+	Print args$ ;
+Else
+	Print args$
+End If
 Return
 
 PIP:
@@ -473,7 +477,7 @@ Select Case UCase$(refcmd$)
     Case "OS": Print _OS$
     Case "PI": Print _Pi
     Case "PIP": GoSub PIP
-    Case "PRINT": GoSub OUTCMD
+    Case "LPRINT","PRINT": GoSub OUTCMD
     Case "PLAY": GoSub PLAYSOUND
     Case "RAND": GoSub RANDNUM
     Case "RMDIR": GoSub REMDIR
