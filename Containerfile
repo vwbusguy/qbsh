@@ -10,6 +10,12 @@ COPY qbsh.bas /tmp/qbsh.bas
 COPY lib/ /tmp/lib/
 RUN ./qb64 -x /tmp/qbsh.bas -o /tmp/qbsh
 
+FROM fedora:37 AS tester
+
+COPY --from=builder /tmp/qbsh /usr/local/bin/qbsh
+COPY tests/ /tmp/tests/
+RUN /tmp/tests/test.qsh
+
 FROM fedora:37
 
 COPY --from=builder /tmp/qbsh /usr/bin/qbsh
