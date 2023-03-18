@@ -10,6 +10,12 @@ COPY qbsh.bas /tmp/qbsh.bas
 COPY lib/ /tmp/lib/
 RUN ./qb64 -x /tmp/qbsh.bas -o /tmp/qbsh
 
+FROM quay.io/fedora/fedora:37-aarch64 AS tester
+
+COPY --from=builder /tmp/qbsh /usr/local/bin/qbsh
+COPY tests/ /tmp/tests/
+RUN /tmp/tests/test.qsh
+
 FROM quay.io/fedora/fedora:37-aarch64 
 
 COPY --from=builder /tmp/qbsh /usr/bin/qbsh

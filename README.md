@@ -84,6 +84,11 @@ Here's a list of low hanging fruit for ways this can be improved:
 * ~~Feed commands through the shell in a script file~~
 * ~~Ship container images on quay.io and/or Docker Hub~~
 
+## Testing
+Run-time tests are in /test .  They can be ran during Container build time with podman (or docker):
+
+`podman build --tag qbsh --skip-unused-stages=false .`
+
 # How To Pronounce it
 
 "Queue Bee Shell"
