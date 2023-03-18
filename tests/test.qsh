@@ -4,13 +4,13 @@ PRINT =======
 PRINT
 LPRINT Date: 
 DATE
-LPRINT Time:
+LPRINT Time: 
 TIME
 PRINT
 PRINT * Test Environment
 LPRINT Operating System: 
 OS
-LPRINT DEVICES:
+LPRINT DEVICES: 
 DEVICES
 LPRINT Hello, 
 WHO AM I
@@ -32,12 +32,14 @@ LPRINT 5 + 1.0 =
 CALC 5 + 1.0
 LPRINT 5 x 3.234 = 
 CALC 5 x 3.234
-LPRINT 5.723 / 9.123
+LPRINT 5.723 / 9.123 = 
 CALC 5.723 / 9.123
-LPRINT 6 ^ 2
+LPRINT 6 % 4 = 
+CALC 6 % 4
+LPRINT 6 ^ 2 = 
 CALC 6 ^ 2
-LPRINT 6 r 4
-CALC 6 r 4
+LPRINT 6 r = 
+CALC 6 r
 PRINT Can we divid by zero?
 CALC 1 / 0 
 PRINT Give me two random numbers:
