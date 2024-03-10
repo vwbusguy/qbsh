@@ -145,18 +145,7 @@ Return
 
 'Offload unhandled call to legacy system shell.  qbsh is the only shell of the future.
 CMDOUT:
-rndbuf = Rnd * 999999
-buff_file$ = "/tmp/buff_qbsh_" + LTrim$(Str$(rndbuf))
-If _FileExists(buff_file$) Then
-    Kill buff_file$
-End If
-Shell "SHELL='" + SELFPATH$ + "'; " + cmd$ + " 2>&1 >" + buff_file$
-Open buff_file$ For Binary As #1
-x$ = Space$(LOF(1))
-Get #1, , x$
-Close #1
-Print x$
-Kill buff_file$
+stdOut$ = Subprocess$(cmd$)
 Return
 
 'Delete a file path
