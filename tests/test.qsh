@@ -18,6 +18,10 @@ PRINT
 PRINT * Changing to home
 LPRINT Your home: 
 ENV HOME
+PRINT What's in your home:
+DIR
+PRINT What's really in your home:
+XDIR
 CHDIR
 PRINT
 PRINT * Writing a test directory
@@ -40,7 +44,7 @@ LPRINT 6 ^ 2 =
 CALC 6 ^ 2
 LPRINT 6 r = 
 CALC 6 r
-PRINT Can we divid by zero?
+PRINT Can we divide by zero?
 CALC 1 / 0 
 PRINT Give me two random numbers:
 RAND

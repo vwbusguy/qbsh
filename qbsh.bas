@@ -214,6 +214,7 @@ Print "CALC - Add, Subtract, Multiply, and Divide"
 Print "CHDIR - Change working directory.  (Or CD)"
 Print "CLEAR - Clear the current screen"
 Print "DATE - Today's Date"
+Print "DIR <Optional directory> - List files in directory"
 Print "DELETE - Delete a file"
 Print "DEVICES - Display info about attached input devices"
 Print "ENV <Optional Key> - Print Environment"
@@ -227,6 +228,7 @@ Print "RENAME <File/Dir> <New Name> - Rename a file or directory"
 Print "READFILE <file> - Output some text file to terminal"
 Print "RMDIR <Directory> - Delete a directory"
 Print "TIME - Current time"
+Print "XDIR <Optional directory> - List detailed directory info"
 Print "WHO AM I - Sometimes we all forget, right?"
 Print
 Print "To exit the interactive shell, run `QUIT`"
@@ -471,6 +473,7 @@ Select Case UCase$(refcmd$)
     Case "CLEAR", "CLS": GoSub CLEARSCR
     Case "DATE": Print Date$
     Case "DEVICES": GoSub LSDEV
+    Case "DIR": PRINT listDir$(args$)
     Case "ENV": GoSub ENV
     Case "MAKEDIR": GoSub MAKEDIR
     Case "RENAME", "NAME", "MOVE", "REN": GoSub RENAME
@@ -483,6 +486,7 @@ Select Case UCase$(refcmd$)
     Case "RMDIR": GoSub REMDIR
     Case "TIME": Print Time$
     Case "USER", "WHO": Print Environ$("USER")
+    Case "XDIR": PRINT listXDir$(args$)
     Case "READFILE", "CAT", "TYPE": GoSub READFILE
     Case Else: GoSub CMDOUT
 End Select

@@ -46,6 +46,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `CHDIR` - Change working directory (also, CD)
 * `CLEAR` - Clear the current screen
 * `DATE` - Today's Date
+* `DIR <Optional directory>` - List files in directory
 * `DELETE` - Delete a file.  (ERA and ERASE also work.)
 * `DEVICES` - Display info about attached input devices
 * `ENV <Optional Key>` - Print Environment
@@ -59,6 +60,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `RENAME <File/Dir> <New Name>` - Rename a file or directory (also, MOVE, NAME, or REN)
 * `RMDIR <Directory>` - Delete a directory
 * `TIME` - Current time
+* `XDIR <Optional directory>` - List detailed directory info
 * `WHO AM I` - Sometimes we all forget, right? (USER also works)
 
 Commands can also be ran ad-hoc apart from scripting or interactive shell by passing them with `qbsh -x`.
