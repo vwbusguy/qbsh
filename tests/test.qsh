@@ -56,7 +56,7 @@ PRINT Can we divide by zero?
 CALC 1 / 0 
 
 'Misc functions
-LPRINT "Dessert: "
+LPRINT Dessert: 
 PI
 PRINT Give me two random numbers:
 RAND
