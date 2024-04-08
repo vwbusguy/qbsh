@@ -23,6 +23,7 @@ ElseIf InStr(_Trim$(Command$), "-x") = 1 Then
 ElseIf _FileExists(_Trim$(Command$)) Then
     args$ = _Trim$(Command$)
     GoSub RUNSCRIPT
+    System
 Else
     Print "QBSH - Quick BASIC Shell"
     Print
@@ -185,7 +186,7 @@ Return
 'General Error handler so xmessage doesn't get triggered
 GENERALERROR:
 Print "Something went terribly wrong.  Here's all we know:"
-Print "Error"; Err; "on program file line"; _ErrorLine
+Print "Error "; Err; " on program file line "; _ErrorLine
 Beep
 Resume MAIN
 Return
@@ -484,6 +485,7 @@ If _FileExists(args$) Then
     Do Until EOF(5)
         script_mode = True
         Line Input #5, cmd$ 'read entire text file line
+        Print cmd$
         GoSub ROUTECMD
     Loop
     Close #5
@@ -494,7 +496,7 @@ End If
 Return
 
 RUNSCRIPTERR:
-Print "Failed to open/run script at "; args$; ".  Check that the file exists and you have permissions to read it."
+Print "Failed to open/run script at "; args$; " due to"; Err; ".  Check that the file exists and you have permissions to read it."
 Resume Next
 Return
 
