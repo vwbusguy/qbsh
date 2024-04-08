@@ -211,6 +211,7 @@ Print "RAND <Optional Limit> - Random number generator"
 Print "RENAME <File/Dir> <New Name> - Rename a file or directory"
 Print "READFILE <file> - Output some text file to terminal"
 Print "RMDIR <Directory> - Delete a directory"
+Print "RUN <file.qsh> - Run a qbsh script"
 Print "TIME - Current time"
 Print "XDIR <Optional directory> - List detailed directory info"
 Print "WHO AM I - Sometimes we all forget, right?"
@@ -222,6 +223,8 @@ Return
 INIT:
 Randomize Timer
 SELFPATH$ = Environ$("_")
+''Initial increment starting point for script read buffers
+rs% = 5
 If SELFPATH$ = "" Or InStr(SELFPATH$, ".") = 1 Then
     If InStr(Command$(0), ".") = 1 Then
         SELFPATH$ = _CWD$ + "/" + Right$(Command$(0), Len(Command$(0)) - 2)
@@ -479,14 +482,16 @@ Return
 
 RUNSCRIPT:
 If _FileExists(args$) Then
-    Open _Trim$(args$) For Input As #5
-    Do Until EOF(5)
+    rs% = rs% + 1
+    Open _Trim$(args$) For Input As #rs%
+    Do Until EOF(rs%)
         On Error GoTo RUNSCRIPTERR
         script_mode = True
-        Line Input #5, cmd$ 'read entire text file line
+        Line Input #rs%, cmd$ 'read entire text file line
         GoSub ROUTECMD
     Loop
-    Close #5
+    Close #rs%
+    rs% = rs% - 1
     script_mode = False
 Else
     Print "Could not open script file at "; args$
