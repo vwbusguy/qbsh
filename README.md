@@ -59,6 +59,7 @@ Typing "HELP" (or "help") will bring up a quick list of some command possibiliti
 * `READFILE <file>` - Output some text file to terminal (cat and TYPE also work)
 * `RENAME <File/Dir> <New Name>` - Rename a file or directory (also, MOVE, NAME, or REN)
 * `RMDIR <Directory>` - Delete a directory
+* `RUN <file.qbsh>` - Run a qbsh script from within a script or interactive shell
 * `TIME` - Current time
 * `XDIR <Optional directory>` - List detailed directory info
 * `WHO AM I` - Sometimes we all forget, right? (USER also works)
@@ -72,6 +73,8 @@ qbsh can be scripted using the above commands in a file.  See the examples direc
 `$ qbsh examples/hello.qsh`
 
 Scripts can be padded with empty lines or indents.  To add comments, just begin the line with a single quote (').
+
+Use `RUN` to call a qbsh script from within another qbsh script or interactive shell.
 
 ### Scripting specific commands
 
