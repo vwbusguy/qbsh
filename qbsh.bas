@@ -23,7 +23,6 @@ ElseIf InStr(_Trim$(Command$), "-x") = 1 Then
 ElseIf _FileExists(_Trim$(Command$)) Then
     args$ = _Trim$(Command$)
     GoSub RUNSCRIPT
-    System
 Else
     Print "QBSH - Quick BASIC Shell"
     Print
@@ -480,12 +479,11 @@ Return
 
 RUNSCRIPT:
 If _FileExists(args$) Then
-    On Error GoTo RUNSCRIPTERR
     Open _Trim$(args$) For Input As #5
     Do Until EOF(5)
+        On Error GoTo RUNSCRIPTERR
         script_mode = True
         Line Input #5, cmd$ 'read entire text file line
-        Print cmd$
         GoSub ROUTECMD
     Loop
     Close #5
@@ -496,7 +494,7 @@ End If
 Return
 
 RUNSCRIPTERR:
-Print "Failed to open/run script at "; args$; " due to"; Err; ".  Check that the file exists and you have permissions to read it."
+Print "Failed to open/run script at "; args$; ".  Check that the file exists and you have permissions to read it."
 Resume Next
 Return
 
