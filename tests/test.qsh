@@ -1,4 +1,6 @@
 #!/usr/local/bin/qbsh
+
+'General Tests
 PRINT Starting General Tests
 PRINT =======
 PRINT
@@ -7,6 +9,8 @@ DATE
 LPRINT Time: 
 TIME
 PRINT
+
+'Test Environment
 PRINT * Test Environment
 LPRINT Operating System: 
 OS
@@ -15,20 +19,24 @@ DEVICES
 LPRINT Hello, 
 WHO AM I
 PRINT
+
+'Basic filesystem tests
 PRINT * Changing to home
+CHDIR
 LPRINT Your home: 
 ENV HOME
 PRINT What's in your home:
 DIR
 PRINT What's really in your home:
 XDIR
-CHDIR
 PRINT
 PRINT * Writing a test directory
 MAKEDIR ~/qb64-test
 PRINT * Renaming a test directory
 RENAME qb64-test ~/qb64-test2
 RMDIR ~/qb64-test2
+
+'Calculator Tests
 PRINT * Testing Calculator
 LPRINT 5 - 1 = 
 CALC 5 - 1
@@ -46,6 +54,10 @@ LPRINT 6 r =
 CALC 6 r
 PRINT Can we divide by zero?
 CALC 1 / 0 
+
+'Misc functions
+LPRINT Dessert: 
+PI
 PRINT Give me two random numbers:
 RAND
 RAND 500

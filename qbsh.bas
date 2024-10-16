@@ -21,13 +21,8 @@ ElseIf InStr(_Trim$(Command$), "-x") = 1 Then
     cmd$ = Right$(_Trim$(Command$), Len(_Trim$(Command$)) - 2)
     GoSub ROUTECMD
 ElseIf _FileExists(_Trim$(Command$)) Then
-    script_mode = True
-    Open _Trim$(Command$) For Input As #5
-    Do Until EOF(5)
-        Line Input #5, cmd$ 'read entire text file line
-        GoSub ROUTECMD
-    Loop
-    Close #5
+    args$ = _Trim$(Command$)
+    GoSub RUNSCRIPT
 Else
     Print "QBSH - Quick BASIC Shell"
     Print
@@ -115,7 +110,7 @@ Return
 CDIR:
 dir$ = resolvePath$(args$)
 If dir$ = "" Then
-	dir$ = Environ$("HOME")
+    dir$ = Environ$("HOME")
 End If
 If _DirExists(dir$) Then
     On Error GoTo CDIRERR
@@ -190,7 +185,7 @@ Return
 'General Error handler so xmessage doesn't get triggered
 GENERALERROR:
 Print "Something went terribly wrong.  Here's all we know:"
-Print "Error"; Err; "on program file line"; _ErrorLine
+Print "Error "; Err; " on program file line "; _ErrorLine
 Beep
 Resume MAIN
 Return
@@ -216,6 +211,7 @@ Print "RAND <Optional Limit> - Random number generator"
 Print "RENAME <File/Dir> <New Name> - Rename a file or directory"
 Print "READFILE <file> - Output some text file to terminal"
 Print "RMDIR <Directory> - Delete a directory"
+Print "RUN <file.qsh> - Run a qbsh script"
 Print "TIME - Current time"
 Print "XDIR <Optional directory> - List detailed directory info"
 Print "WHO AM I - Sometimes we all forget, right?"
@@ -227,6 +223,8 @@ Return
 INIT:
 Randomize Timer
 SELFPATH$ = Environ$("_")
+''Initial increment starting point for script read buffers
+rs% = 5
 If SELFPATH$ = "" Or InStr(SELFPATH$, ".") = 1 Then
     If InStr(Command$(0), ".") = 1 Then
         SELFPATH$ = _CWD$ + "/" + Right$(Command$(0), Len(Command$(0)) - 2)
@@ -265,9 +263,9 @@ Return
 'Is there an echo in here?
 OUTCMD:
 If script_mode = True And refcmd$ = "LPRINT" Then
-	Print args$ ;
+    Print args$;
 Else
-	Print args$
+    Print args$
 End If
 Return
 
@@ -462,23 +460,47 @@ Select Case UCase$(refcmd$)
     Case "CLEAR", "CLS": GoSub CLEARSCR
     Case "DATE": Print Date$
     Case "DEVICES": GoSub LSDEV
-    Case "DIR": PRINT listDir$(args$)
+    Case "DIR": Print listDir$(args$)
     Case "ENV": GoSub ENV
     Case "MAKEDIR": GoSub MAKEDIR
     Case "RENAME", "NAME", "MOVE", "REN": GoSub RENAME
     Case "OS": Print _OS$
     Case "PI": Print _Pi
     Case "PIP": GoSub PIP
-    Case "LPRINT","PRINT": GoSub OUTCMD
+    Case "LPRINT", "PRINT": GoSub OUTCMD
     Case "PLAY": GoSub PLAYSOUND
     Case "RAND": GoSub RANDNUM
     Case "RMDIR": GoSub REMDIR
+    Case "RUN": GoSub RUNSCRIPT
     Case "TIME": Print Time$
     Case "USER", "WHO": Print Environ$("USER")
-    Case "XDIR": PRINT listXDir$(args$)
+    Case "XDIR": Print listXDir$(args$)
     Case "READFILE", "CAT", "TYPE": GoSub READFILE
     Case Else: GoSub CMDOUT
 End Select
+Return
+
+RUNSCRIPT:
+If _FileExists(args$) Then
+    rs% = rs% + 1
+    Open _Trim$(args$) For Input As #rs%
+    Do Until EOF(rs%)
+        On Error GoTo RUNSCRIPTERR
+        script_mode = True
+        Line Input #rs%, cmd$ 'read entire text file line
+        GoSub ROUTECMD
+    Loop
+    Close #rs%
+    rs% = rs% - 1
+    script_mode = False
+Else
+    Print "Could not open script file at "; args$
+End If
+Return
+
+RUNSCRIPTERR:
+Print "Failed to open/run script at "; args$; ".  Check that the file exists and you have permissions to read it."
+Resume Next
 Return
 
 'Give a way to clo(se this because this isn't vim

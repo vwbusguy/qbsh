@@ -1,0 +1,3 @@
+#!./qbsh
+'Call tests
+RUN ./tests/test.qsh
