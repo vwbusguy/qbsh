@@ -1,4 +1,4 @@
-FROM fedora:39 as builder
+FROM fedora:40 as builder
 
 WORKDIR /tmp
 RUN dnf install wget gcc g++ alsa-lib{,-devel} binutils findutils libglvnd-{devel,glx} mesa-libGLU{,-devel} zlib-devel -y
@@ -10,13 +10,13 @@ COPY qbsh.bas /tmp/qbsh.bas
 COPY lib/ /tmp/lib/
 RUN ./qb64 -x /tmp/qbsh.bas -o /tmp/qbsh
 
-FROM fedora:39 AS tester
+FROM fedora:40 AS tester
 
 COPY --from=builder /tmp/qbsh /usr/local/bin/qbsh
 COPY tests/ /tmp/tests/
 RUN /tmp/tests/test.qsh
 
-FROM fedora:39
+FROM fedora:40
 
 COPY --from=builder /tmp/qbsh /usr/bin/qbsh
 ENTRYPOINT qbsh
